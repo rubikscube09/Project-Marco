@@ -1,5 +1,6 @@
 import re
 import util
+import weather_data
 import bs4
 import queue
 import json
@@ -12,17 +13,21 @@ def get_destinations(starting_url,n):
     Crawl pages on lonely planet. Return a dataframe table with n vacation
     destinations, and the words assosciated with each vacation destination.
     '''
+
 def get_keywords(destinations,j,k, df):
     '''
     Extract j non-common words that are best at binning the destinations into k
     bins above. Return a dataframe with only these key words.
     '''
 
-def get_weather(df, travel_dates):
+def get_weather(df, city, travel_dates):
     '''
     Add weather info to dataframe.
     '''
 
+    # call weather_data
+
+    
 def get_languages(df):
     '''
     Add language info to dataframe.
@@ -36,7 +41,9 @@ def get_safety(starting_url):
 	Input: a string of url
 	Output: list
 	'''
-	request = util.get_request(starting_url)
+	
+    # what is our util here
+    request = util.get_request(starting_url)
 	current_url = util.get_request_url(request)
 	html = util.read_request(request)
 	soup = bs4.BeautifulSoup(html, "html5lib")
