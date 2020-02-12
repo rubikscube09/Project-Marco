@@ -1,6 +1,7 @@
 import re
 import util
 import weather_data
+import requests
 import bs4
 import queue
 import json
@@ -71,7 +72,22 @@ def get_flight_costs(df, travel_dates, starting_dest):
 def get_hotel_costs(df, travel_dates):
     '''
     Get best hotels in each dest, add to dataframe
+    Hotel prices from Booking, Expedia, Agoda and HotelsCom2
     '''
+
+    base_url = 'https://data.xotelo.com/api/rates'
+    # sample check in and check out dates
+    check_in_date = '2020-2-13'
+    check_out_date = '2020-2-15'
+    # sample hotel key, need function to get hotel key (from Tripadvisor)
+    hotel_key = 'g187791-d316644'
+    request_url = base_url + '?hotel_key=' + hotel_key 
+    request_url += '&chk_in=' + check_in_date
+    request_url += '&chk_out=' + check_out_date
+    response = requests.get(request_url)
+    return response.json()
+
+    
 #FUNCTIONS TO POPULATE TREE
 class tree:
     '''
