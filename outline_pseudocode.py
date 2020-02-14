@@ -36,33 +36,33 @@ def get_languages(df):
 
 def get_safety(starting_url):
     '''
-	Scrapes the travel advisory info on the State Department website and \
-	gives a list containing nation name and advisory level.
+    Scrapes the travel advisory info on the State Department website and \
+    gives a list containing nation name and advisory level.
 
-	Input: a string of url
-	Output: list
-	'''
-	
+    Input: a string of url
+    Output: list
+    '''
+    
     # what is our util here
     request = util.get_request(starting_url)
-	current_url = util.get_request_url(request)
-	html = util.read_request(request)
-	soup = bs4.BeautifulSoup(html, "html5lib")
-	table = soup.find_all("table")
-	tbody = table[0].find_all("tbody")
-	tr_list = table[0].find_all("tr")
-	travel_advisory = []
-	for tr in tr_list:
-		td = tr.find_all("td")
-		if td != [] and td[0].text != "Worldwide Caution":
-			td = td[ : -1]
-			list_td = td[0].text.split()
-			list_td = list_td[ : -2]
-			td[0] = " ".join(list_td)
-			td[1] = td[1].text
-			travel_advisory.append(td)
-			
-	return travel_advisory
+    current_url = util.get_request_url(request)
+    html = util.read_request(request)
+    soup = bs4.BeautifulSoup(html, "html5lib")
+    table = soup.find_all("table")
+    tbody = table[0].find_all("tbody")
+    tr_list = table[0].find_all("tr")
+    travel_advisory = []
+    for tr in tr_list:
+        td = tr.find_all("td")
+        if td != [] and td[0].text != "Worldwide Caution":
+            td = td[ : -1]
+            list_td = td[0].text.split()
+            list_td = list_td[ : -2]
+            td[0] = " ".join(list_td)
+            td[1] = td[1].text
+            travel_advisory.append(td)
+            
+    return travel_advisory
 
 def get_flight_costs(df, travel_dates, starting_dest):
     '''
@@ -99,7 +99,7 @@ def populate_tree(df):
     Returns: tree object
     '''
 
-def query_tree:
+def query_tree():
     '''
     Query our tree and return relevant info.
     '''
