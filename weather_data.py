@@ -9,7 +9,7 @@ import datetime
 from geopy.geocoders import Nominatim
 
 # convert city name into latitude and longitude
-city = 'Chicago' # sample city
+city = input('Enter City Name: ') 
 geolocator = Nominatim(user_agent='marco')
 location = geolocator.geocode(city)
 lat = location.latitude
@@ -17,29 +17,61 @@ lat = str(lat)
 lon = location.longitude
 lon = str(lon)
 
-# historical weather data using Darksky API
-API_key0 = '9b36894c88b4232f066c1fec6b2e3511'
-# 1000 free calls per day
+date_in_str = input('Enter date of interest(yyyy-mm-dd): ')
+date_in = datetime.datetime.strptime(date_in_str, "%Y-%m-%d")
+today = datetime.datetime.today()
+# calculate difference between input date and today's date
+day_diff = date_in - today
+day_diff = day_diff.days
 
-request_url0 = 'https://api.darksky.net/forecast/' + API_key0 + '/'
-# make sure the lat lon have the correct signs
-request_url0 += lat + ',' + lon
-# the date we want historical data from, in UNIX, sample date 1/12/2011
-date = int(datetime.datetime.strptime('1/23/2001', "%m/%d/%Y").timestamp())
-request_url0 += ',' + str(date)
+if day_diff < 0 or day_diff > 16:
+    # if the input date is in the past or the input date is beyond
+    # the 16 day forecast range, use darksky api for historical weather
 
-weather_response0 = requests.get(request_url0)
-weather_json0 = weather_response0.json()
-# the data of interest is in 
-weather_json0['daily']['data']
+    API_key0 = '9b36894c88b4232f066c1fec6b2e3511'
+    # 1000 free calls per day
 
-# 16 day forecast weather data using Weatherbit API
-API_Key1 = '01a7197ed8294958ab4c7c6662cbb01c'
-# 500 calls per day
+    request_url0 = 'https://api.darksky.net/forecast/' + API_key0 + '/'
+    # make sure the lat lon have the correct signs
+    request_url0 += lat + ',' + lon
+    # if the input day is beyond the 16 day forecast range, dial the year
+    # of the input one year back to get an estimate
+    if day_diff > 16:
+        date_in = date_in.replace(year = date_in.year - 1)
+    # the date we want historical data from, in UNIX
+    date = int(date_in.timestamp())
+    request_url0 += ',' + str(date)
 
-request_url1 = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + API_Key1
-request_url1 += '&lat=' + lat + '&lon=' + lon
+    weather_response0 = requests.get(request_url0)
+    weather_json0 = weather_response0.json()
+    data0 = weather_json0['daily']['data'][0]
+    # apparent Temperature High and Low
+    app_temp_h = data0['apparentTemperatureHigh']
+    app_temp_l = data0['apparentTemperatureLow']
+    # rainfall probability
+    prob_precip = data0['precipProbability']
+    print('Apparent Temp High: %g, Apparent Temp Low: %g, '
+      'Chance of Rain: %g' %(app_temp_h, app_temp_l, prob_precip))
 
-weather_response1 = requests.get(request_url1)
-weather_json1 = weather_response1.json()
-# check documentation for where to get data
+else:
+    # 16 day forecast weather data using Weatherbit API
+    API_Key1 = '01a7197ed8294958ab4c7c6662cbb01c'
+    # 500 calls per day
+
+    request_url1 = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + API_Key1
+    request_url1 += '&lat=' + lat + '&lon=' + lon
+
+    weather_response1 = requests.get(request_url1)
+    weather_json1 = weather_response1.json()
+    data1 = weather_json1['data']
+
+    for day in data1:
+        if day['datetime'] == date_in_str:
+            # apparent temps
+            max_t = day["app_max_temp"]
+            min_t = day["app_min_temp"]
+            # chance of rain
+            precip = day['precip']
+        
+    print('Apparent Temp High: %g, Apparent Temp Low: %g, '
+      'Chance of Rain: %g' %(max_t, min_t, precip))
