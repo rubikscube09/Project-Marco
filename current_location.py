@@ -1,9 +1,12 @@
 import requests
-# use the python requests library for api calls
 # using an api from whatismyapiaddress.com
 # api calls limited to once per 5 minute
-# other ways to realize the same functionality will be appreciated
-ip_response = requests.get('http://bot.whatismyipaddress.com')
+# ip_response = requests.get('http://bot.whatismyipaddress.com')
+# ip_address = ip_response.text
+
+# alternative API, unlimited calls, but this level of convenience makes me
+# question the legitimacy of the website
+ip_response = requests.get('https://ifconfig.me/')
 ip_address = ip_response.text
 
 # using an api from ipstack.com
@@ -17,3 +20,5 @@ city = location_json['city']
 lat = location_json['latitude']
 lon = location_json['longitude']
 print(city, lat, lon)
+
+# need to consider what happens when there is no internet connection
