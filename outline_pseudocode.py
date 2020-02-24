@@ -43,13 +43,10 @@ def get_safety(starting_url):
     Output: list
     '''
     
-    # what is our util here
-    request = util.get_request(starting_url)
-    current_url = util.get_request_url(request)
-    html = util.read_request(request)
+    filename = 'Travel Advisories.html'
+    html = open(filename).read()
     soup = bs4.BeautifulSoup(html, "html5lib")
     table = soup.find_all("table")
-    tbody = table[0].find_all("tbody")
     tr_list = table[0].find_all("tr")
     travel_advisory = []
     for tr in tr_list:
@@ -61,13 +58,14 @@ def get_safety(starting_url):
             td[0] = " ".join(list_td)
             td[1] = td[1].text
             travel_advisory.append(td)
-            
     return travel_advisory
 
 def get_flight_costs(df, travel_dates, starting_dest):
     '''
     Get best flights to each dest, add to dataframe
     '''
+
+
 
 def get_hotel_costs(df, travel_dates):
     '''
