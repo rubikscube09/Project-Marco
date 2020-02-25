@@ -69,6 +69,7 @@ def get_flight_costs(df, travel_dates, starting_dest):
     airports = pd.read_csv('airports.csv')
     airports.dropna(subset=['iata_code'], inplace=True)
     airports = airports[(airports['type'] == 'medium_airport') | (airports['type'] == 'large_airport')]
+    # maybe output to new csv up to this point?
     airports = airports[airports['municipality'] == starting_dest]
     airports = airports['ident']
     # calucalte the closet airport by using current location
