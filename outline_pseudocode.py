@@ -7,6 +7,7 @@ import queue
 import json
 import sys
 import csv
+import pandas as pd
 
 #FUNCTIONS TO FILL DATAFRAME
 def get_destinations(starting_url,n):
@@ -36,7 +37,7 @@ def get_languages(df):
 
 def get_safety(starting_url):
     '''
-    Scrapes the travel advisory info on the State Department website and \
+    Scrapes the travel advisory info on the State Department website and
     gives a list containing nation name and advisory level.
 
     Input: a string of url
@@ -65,6 +66,42 @@ def get_flight_costs(df, travel_dates, starting_dest):
     Get best flights to each dest, add to dataframe
     '''
 
+    airports = pd.read_csv('airports.csv')
+    airports.dropna(subset=['iata_code'], inplace=True)
+    airports = airports[(airports['type'] == 'medium_airport') | (airports['type'] == 'large_airport')]
+    # maybe output to new csv up to this point?
+    airports = airports[airports['municipality'] == starting_dest]
+    airports = airports['ident']
+    # calucalte the closet airport by using current location
+    origin = None
+    # get destination from another function maybe
+    destination = None
+    # date is in MM/DD/YYYY format
+    starting_date, return_date = travel_dates
+    url = ('https://api.skypicker.com/flights?fly_from={}&fly_to={}'
+           '&date_from={}&date_to={}&partner=picky&v=3'.format(origin, destination, starting_date, return_date))
+    flight_response = requests.get(url)
+    flight_data = flight_response.json()['data']
+    output_df = pd.DataFrame()
+    list_carriers = []
+    prices = []
+    list_duration = []
+    for data in flight_data:
+        airline = data['airlines'][0]
+        price = data['price']
+        duration = data['fly_duration']
+        # the next line may not be right as there might be more than one route?
+        flight_no = airline + str(data['route'][0]['flight_no'])
+        list_carriers.append(flight_no)
+        prices.append(price)
+        list_duration.append(duration)
+    
+    output_df['flight'] = list_carriers
+    output_df['price'] = prices
+    output_df['duration'] = list_duration
+    # the repsonse from API seems already sorted, but just to be sure
+    output_df.sort_values(by=['price','duration'], inplace=True)
+    return output_df
 
 
 def get_hotel_costs(df, travel_dates):
