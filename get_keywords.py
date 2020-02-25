@@ -1,5 +1,6 @@
+import textrazor
+
 def get_keywords(text):
-    import textrazor
     textrazor.api_key = "1b69ecec7f8c72d386c2c5280780e6eb6ec00510e2a221d98e246c82"
     client = textrazor.TextRazor(extractors=["entities", "topics"])
 
