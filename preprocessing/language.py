@@ -36,4 +36,5 @@ def get_language(country):
     elif country in CORRECTIONS_DIC:
         return(c)
     else:
+        print("failed "+country)
         return(-1)
