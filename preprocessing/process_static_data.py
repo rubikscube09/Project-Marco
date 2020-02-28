@@ -11,5 +11,4 @@ df['country']=df.apply(lambda row: country.get_country(row['city']),axis=1)
 df['language']=df.apply(lambda row: language.get_language(row['country']),axis=1)
 df['safety']=df.apply(lambda row: safety.get_safety(row['country']), axis=1)
 
-
-
+df.to_csv("/CMSC-12200-Group-Project/destinations_with_static_info.csv", header=True, index=False)
