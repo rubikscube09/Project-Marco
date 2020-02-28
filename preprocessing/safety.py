@@ -25,10 +25,10 @@ def fill_safety(starting_url):
     return travel_advisory
     
 TRAVEL_ADVISORY=fill_safety('https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html/')
-
+CORRECTIONS={}
 def get_safety(country):
     if country in CORRECTIONS:
-        return(TRAVEL_ADVISORY[corrections])
+        return(CORRECTIONS[country])
     elif country in TRAVEL_ADVISORY:
         return(TRAVEL_ADVISORY[country])
     else:
