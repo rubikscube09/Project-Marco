@@ -5,7 +5,7 @@ import language
 import safety
 
 #df=process_city_keywords.df
-df=pd.read_csv("/Scraping/destinations.csv")
+df=pd.read_csv("/scraping/destinations.csv")
 
 df['country']=df.apply(lambda row: country.get_country(row['city']),axis=1)
 df['language']=df.apply(lambda row: language.get_language(row['country']),axis=1)
