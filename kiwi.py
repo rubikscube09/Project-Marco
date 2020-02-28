@@ -1,6 +1,4 @@
 import requests
-import time
-import datetime
 from geopy.geocoders import Nominatim 
 
 geolocator = Nominatim(user_agent='Marco')
@@ -48,9 +46,18 @@ def get_flights(fly_from, fly_to,
     fly_from = str(round(out_lat,2)) + '-' + str(round(out_lon,2)) + '-' + str(radius) + radius_format
     fly_to = str(round(in_lat,2)) + '-' + str(round(in_lon,2)) + '-' + str(radius) + radius_format
 
-    #adults=adults, children=children, infants=infants, return_from=return_from,return_to=return_to
     url = 'https://api.skypicker.com/flights?fly_from={}&fly_to={}&date_from={}&date_to={}&curr={}&sort={}&partner=picky&v=3'.format(\
           fly_from, fly_to, date_from, date_to, 'USD', 'price')
+
+    if roundtrip:
+        assert return_from != None and return_to != None, 'Please specify locations'
+        url += '&return_from={}&return_to={}'.format(return_from, return_to)
+    if adults != 1:
+        url += '&adults={}'.format(adults)
+    if children != 0:
+        url += '&children={}'.format(children)
+    if infants != 0:
+        url += '&infants={}'.format(infants)
 
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
