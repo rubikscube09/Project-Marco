@@ -12,7 +12,7 @@ def get_flights(fly_from, fly_to,
                 adults=1, children=0, infants=0,
                 budget=1500, currency='USD',
                 people=0, 
-                max_duration=24, 
+                max_duration=50, 
                 radius=50, radius_format= 'km',):
     '''
     Gets possible flights given search parameters.
@@ -56,7 +56,7 @@ def get_flights(fly_from, fly_to,
     flight_resp_dict = flight_response.json()
     flight_data = flight_resp_dict['data']
     filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
-
+    print(filt_flight_data)
     final_data = [None]*len(filt_flight_data)
     for i in range(0,len(final_data)):
         final_data[i] = {'price':filt_flight_data[i]['price'], 
@@ -68,7 +68,9 @@ def get_flights(fly_from, fly_to,
                                      )
                                     for leg in filt_flight_data[i]['route']],
                         "total_duration":float(filt_flight_data[i]['fly_duration'].split('h')[0]),
-                        "link":filt_flight_data[i]['deep_link']
+                        "link":filt_flight_data[i]['deep_link'],
+                        'start_dest':(filt_flight_data[i]['cityFrom'],filt_flight_data[i]['flyFrom'],filt_flight_data[i]['countryFrom']['name']),
+                        'end_dest':(filt_flight_data[i]['cityTo'],filt_flight_data[i]['flyTo'],filt_flight_data[i]['countryTo']['name'])
                         }
 
     return final_data
