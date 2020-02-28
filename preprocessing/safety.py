@@ -1,3 +1,6 @@
+import bs4
+import requests
+
 def fill_safety(starting_url):
     '''
     Scrapes the travel advisory info on the State Department website and
