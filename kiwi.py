@@ -48,9 +48,9 @@ def get_flights(fly_from, fly_to,
     fly_from = str(round(out_lat,2)) + '-' + str(round(out_lon,2)) + '-' + str(radius) + radius_format
     fly_to = str(round(in_lat,2)) + '-' + str(round(in_lon,2)) + '-' + str(radius) + radius_format
 
-    #TODO - FIGURE OUT HOW TO FORMAT THIS.
-    url = 'https://api.skypicker.com/flights?fly_from={fly_from}&fly_to={fly_to}&date_from={date_from}&date_to={date_to}&curr={curr}&sort={sort}&partner=picky&v=3'.format(
-        fly_from=fly_from,fly_to=fly_to, date_from=date_from,date_to=date_to,curr = 'USD',sort = 'price',adults=adults, children=children, infants=infants, return_from=return_from,return_to=return_to)
+    #adults=adults, children=children, infants=infants, return_from=return_from,return_to=return_to
+    url = 'https://api.skypicker.com/flights?fly_from={}&fly_to={}&date_from={}&date_to={}&curr={}&sort={}&partner=picky&v=3'.format(\
+          fly_from, fly_to, date_from, date_to, 'USD', 'price')
 
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
