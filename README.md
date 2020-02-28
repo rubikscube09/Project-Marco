@@ -1,24 +1,30 @@
 Marco
-we should probably make more folders
 
 - Data
     - List countries English-speaking population.html
     - Travel Advisories.html
     - airports.csv
     - language.json
+    - city_links_csv.csv
+    - destination.csv
 - Functions
-    - city_to_country.py
+    - scrape_city_links.py
+    - scapre_city_pages.py
+    - constants.py
+    - country.py
+    - process_city_keywords.py
+    - process_static_data.py
     - current_location.py
+    - safety.py
     - get_keywords.py
     - language.py
     - outline_pseudocode.py
-        - get_safety
-        - get_flight_costs
-        - get_hotel_costs
+        - get_flight_costs (old)
+    - hotel_costs.py
+    - kiwi.py
+    - skyscanner.py
     - pile_driver.py
     - weather_data.py
-- Scraping
-    - Scraping
 - Proposal
     - Proposal.txt
     - proposal.pdf
