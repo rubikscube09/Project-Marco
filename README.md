@@ -1,30 +1,30 @@
 Marco
 
 - Data
-    - List countries English-speaking population.html
-    - Travel Advisories.html
-    - airports.csv
-    - language.json
-    - city_links_csv.csv
-    - destination.csv
+    - List countries English-speaking population.html -- language.py
+    - language.json -- language.py
+    - Travel Advisories.html (exmaple) -- safety.py
+    - airports.csv -- kiwi.py, skyscanner.py
+    - city_links_csv.csv -- scrape_city_links.py
+    - destination.csv -- scrape_city_pages.py
 - Functions
-    - scrape_city_links.py
-    - scapre_city_pages.py
-    - constants.py
-    - country.py
-    - process_city_keywords.py
-    - process_static_data.py
-    - current_location.py
-    - safety.py
-    - get_keywords.py
-    - language.py
-    - outline_pseudocode.py
+    - scrape_city_links.py -- Scrape city links from Lonely Planet
+    - scapre_city_pages.py -- Scrape info from city pages on Lonely Planet
+    - constants.py -- Keywords and keywords dictionary
+    - country.py -- Get country of a city
+    - process_city_keywords.py -- WIP
+    - process_static_data.py -- Output static info
+    - current_location.py -- Get user's current location by ip address
+    - safety.py -- Get travel advisories
+    - get_keywords.py -- Get keywords from a paragraph
+    - language.py -- Get percentage of English speakers by country
+    - outline_pseudocode.py -- Project outline
         - get_flight_costs (old)
-    - hotel_costs.py
-    - kiwi.py
-    - skyscanner.py
-    - pile_driver.py
-    - weather_data.py
+    - hotel_costs.py -- Slow hotel costs information scraper
+    - kiwi.py -- Flight costs information by kiwi.com
+    - skyscanner.py -- Flight costs information by skyscanner api
+    - pile_driver.py -- 
+    - weather_data.py -- Getting weather related data
 - Proposal
     - Proposal.txt
     - proposal.pdf
