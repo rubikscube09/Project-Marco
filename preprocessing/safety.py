@@ -10,8 +10,9 @@ def fill_safety(starting_url):
     Output: list
     '''
     
-    filename = 'Travel Advisories.html'
-    html = open(filename).read()
+    #filename = 'Travel Advisories.html'
+    #html = open(filename).read()
+    html = requests.get(starting_url).text
     soup = bs4.BeautifulSoup(html, "html5lib")
     table = soup.find_all("table")
     tr_list = table[0].find_all("tr")
