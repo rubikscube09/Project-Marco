@@ -3,9 +3,7 @@ Code for getting weather related data
 '''
 
 import requests
-import time
 import datetime
-# install geopy by 'pip install geopy'
 from geopy.geocoders import Nominatim
 
 # convert city name into latitude and longitude
