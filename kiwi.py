@@ -63,16 +63,13 @@ def get_flights(fly_from, fly_to,
     flight_resp_dict = flight_response.json()
     flight_data = flight_resp_dict['data']
     filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
-    print(filt_flight_data)
+    
     final_data = [None]*len(filt_flight_data)
     for i in range(0,len(final_data)):
         final_data[i] = {'price':filt_flight_data[i]['price'], 
-                        'Itinerary':[(
-                                    (leg['cityFrom'],leg['cityTo']),
+                        'Itinerary':[((leg['cityFrom'],leg['cityTo']),
                                     (leg['flyFrom'],leg['flyTo']),
-                                     leg['operating_carrier']+leg['operating_flight_no'],
-                                     leg
-                                     )
+                                     leg['airline']+str(leg['flight_no']))
                                     for leg in filt_flight_data[i]['route']],
                         "total_duration":float(filt_flight_data[i]['fly_duration'].split('h')[0]),
                         "link":filt_flight_data[i]['deep_link'],
