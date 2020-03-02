@@ -57,21 +57,10 @@ Reservations, Historic Walking Areas,Mines,Civic Centers,Ghost Towns,Military Ba
 Battlefields,Missions,Farms,Landmarks/ Points of Interest,Architectural Buildings,\
 Monuments/ Statues,Bridges,Scenic Drives,Observation Decks/ Towers,Lookouts,\
 Lighthouses,Ships,Wharfs/ Piers/ Boardwalks,Fountains, Mysterious Sites,Arenas/ Stadiums/ Fields\
-,Race Car Tracks'.split(',')
+,Race Car Tracks'.split(',') + ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
 
 HISTORIC = ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
 
-AGGREGATE = list(set( BOAT_TOURS + CASINOS + CONCERTS_SHOWS + FOOD_DRINK + MUSEUMS + NATURE_PARKS + OUTDOOR_ACTIVITIES+SHOPPING+SPAS_AND_WELLNESS+TOURS+AMUSEMENT_PARKS))
-
-
-# TODO: CHANGE THIS TO FINER CLUSTERS, SOME ARE STILL GOOD (FOR EXAMPLE: ZOOS AND AMUSEMENT PARKS, NATURE NEEDS TO BE CHANGED!!)
 CLUSTERS = ['SEA_OUTDOOR','LAND_OUTDOOR','CASINOS','CONCERTS_SHOWS','FOOD_DRINK','GROUND_NATURE','COLD_OUTDOOR'
 ,'MUSEUMS','NATURE_PARKS','OUTDOOR_ACTIVITIES', 'SHOPPING',
 'SPAS_AND_WELLNESS','TOURS','AMUSEMENT_PARKS','ZOOS']
-
-CLUSTERS_TO_LIST = {'BOAT_TOURS':BOAT_TOURS,'CASINOS':CASINOS,'CONCERTS_SHOWS':CONCERTS_SHOWS,'FOOD_DRINK':FOOD_DRINK,'MUSEUMS':MUSEUMS,'NATURE_PARKS':NATURE_PARKS,'OUTDOOR_ACTIVITIES':OUTDOOR_ACTIVITIES, 'SHOPPING':SHOPPING,
-'SPAS_AND_WELLNESS':SPAS_AND_WELLNESS,'TOURS':TOURS,'AMUSEMENT_PARKS':AMUSEMENT_PARKS,'ZOOS':ZOOS
-	
-
-
-}
