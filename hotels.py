@@ -1,8 +1,9 @@
 import requests
+import time
 from geopy.geocoders import Nominatim 
 
 # Getting Hotels and associated information using the TripAdvisor hotels and location API. 500 calls/day , 1 call/second 
-# Might be 250/day because we have to call 2 APIs
+# Might be 250/day because we have to call 2/3 APIs
 
 def get_location_id(location):
 
@@ -58,9 +59,11 @@ def get_hotels(location,
         minprice (float): Minimum amount (/night) to be spent in given currency. Default Value 0 
         budget (float): Maximum amount (/night) that one would like to spend. Default Value 10000
         amenities 
-        limit (int): Number of entries 
+        limit (int): Number of hotels 
 
     '''
+
+    #TODO: PERFORM ONLY ONE CALL TO THE LOCATION API SO THAT WE DON'T GO OVER THE LIMIT
     url = "https://tripadvisor1.p.rapidapi.com/hotels/list"
     location_id = get_location_id(location)
     querystring = { 'location_id' : str(location_id),
@@ -85,7 +88,19 @@ def get_hotels(location,
 
 
 def get_attractions(location):
+    '''
+    Given a location (usually a city) return the top 30 recommended attractions as suggested by TripAdvisor's attractions API.
+
+    Args:
+        location - City whose attractions are to be found.
+
+    Returns:
+        List of dictionaries, each dictionary holding the name of the attraction and various keywords that classify interactions.
+    '''
+
+    #TODO: PERFORM ONLY ONE CALL TO THE LOCATION API SO THAT WE DON'T GO OVER THE LIMIT
     location_id = get_location_id(location)
+    print(location)
     url = "https://tripadvisor1.p.rapidapi.com/attractions/list"
     querystring = {"lang":"en_US","currency":"USD","sort":"recommended","location_id":location_id}
 
@@ -97,9 +112,7 @@ def get_attractions(location):
     response = requests.request("GET", url, headers=headers, params=querystring)
     
     response_data = response.json()['data']
-    attractions = [{'name':x['name'],
-                    'subcategory_names':[x['subcategory'][i]['name'] for i in range(0,len(x['subcategory']))],
-                    'subtype_names': [x['subtype'][i]['name'] for i in range(0,len(x['subtype']))]}
+    attractions = [[x['subtype'][i]['name'] for i in range(0,len(x['subtype']))]
                     for x in response_data if 'name' in x.keys()]
     return attractions
 
