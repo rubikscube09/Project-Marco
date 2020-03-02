@@ -83,3 +83,23 @@ def get_hotels(location,
     resp_data_price_sort = sorted(resp_data, key = lambda x: (int(x['price'].split()[0].strip('$')) + int(x['price'].split()[2].strip('$')))/2)
     return [(data['name'],data['price'],(data['latitude'],data['longitude'])) for data in resp_data_price_sort]
 
+
+def get_attractions(location):
+    location_id = get_location_id(location)
+    url = "https://tripadvisor1.p.rapidapi.com/attractions/list"
+    querystring = {"lang":"en_US","currency":"USD","sort":"recommended","location_id":location_id}
+
+    headers = {
+        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+            'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    
+    response_data = response.json()['data']
+    attractions = [{'name':x['name'],
+                    'subcategory_names':[x['subcategory'][i]['name'] for i in range(0,len(x['subcategory']))],
+                    'subtype_names': [x['subtype'][i]['name'] for i in range(0,len(x['subtype']))]}
+                    for x in response_data if 'name' in x.keys()]
+    return attractions
+
