@@ -1,4 +1,9 @@
-BOAT_TOURS = 'Kayaking & canoeing,Stand-Up Paddleboarding,Waterskiing & jetskiing,Swim with dolphins,Surfing, Windsurfing & Kitesurfing,Submarine tours,Shark diving,Scuba & snorkelling,River rafting & tubing,Parasailing & paragliding,Water sports,Speed boats tours,Duck tours,Boat Tours,Boat rentals,Dolphin & whale watching,Fishing charters & tours,Gondola cruises'.split(',')
+BOAT_TOURS = 'Kayaking & canoeing,Stand-Up Paddleboarding,Waterskiing & jetskiing,Swim with dolphins,Surfing, \
+Windsurfing & Kitesurfing,Submarine tours,Shark diving,Scuba & snorkelling,River rafting & tubing,\
+Parasailing & paragliding,Water sports,Speed boats tours,Duck tours,Boat Tours,Boat rentals,\
+Dolphin & whale watching,Fishing charters & tours,Gondola cruises'.split(',')
+
+
 
 CASINOS = ['Casinos']
 
@@ -8,9 +13,34 @@ FOOD_DRINK = 'Farmers markets,Distillery Tours,Wineries,Breweries,Distilleries,B
 
 MUSEUMS = 'Observatories/ Planetariums,Military Museums,Museums,Natural History Museums,Children\'s Museums,Science Museums,Specialty Museums,Art Galleries,Art Museums,History Museums'.split(',')
 
-NATURE_PARKS = 'National Parks,Biking Trails,Equestrian Trails,Hiking Trails,Motorcycle Trails,Off road/All Terrain Vehicle Trails,Ski/ Snowboard Areas,Beaches,Zoos,Aquariums,Bodies of Water,Canyons,Caverns/ Caves,Dams,Deserts,Forests,Gardens,Geologic Formations,Hot Springs/ Geysers,Islands,Marinas,Mountains,Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks'.split(',')
+NATURE_PARKS = 'National Parks,Biking Trails,Equestrian Trails,Hiking Trails,\
+Beaches,Zoos,Aquariums,Bodies of Water,Canyons,Caverns/ Caves,Dams,Deserts,\
+Forests,Gardens,Geologic Formations,Hot Springs/ Geysers,Islands,Marinas,Mountains,\
+Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks,Nature & wildlife tours'.split(',') + SEA_NATURE
 
-OUTDOOR_ACTIVITIES = 'Sports Camps/ Clinics,Horseback Riding Stables,Golf Courses,Motorcycle Trails,Hiking Trails,Cross-country Ski Areas,Zoos,Surf Camps,Submarine tours,Parasailing & paragliding,Shark diving,Scuba & snorkelling,River rafting & tubing,Boat rentals,Dolphin & whale watching,Gondola cruises,Speed boats tours,Kayaking & canoeing,Equestrian Trails,Off road/All Terrain Vehicle Trails,Biking Trails,Ski/ Snowboard Areas,Trails,Beaches,Scenic Drives,Horse-Drawn Carriage Tours,Jogging Paths/ Tracks,Resort Communities,Other outdoor activities,Zipline tours,Stand-Up Paddleboarding,Ski & snow tours,Safaris, Running tours,Canyoning & Rappelling Tours,Air tours,Nature & wildlife tours,Boat Tours,Hiking & camping tours,Golf tours & tee times,Fishing charters & tours,Eco tours,Climbing tours,Bike tours,Balloon rides,Adrenaline & extreme tours,4WD, ATV & off-road tours,Duck tours,Waterskiing & jetskiing,Swim with dolphins,Surfing, Windsurfing & Kitesurfing,Gear rentals,Water sports'.split(',')
+SEA_NATURE = ['Beaches', 'Bodies of Water', 'Reefs','Islands','Marinas','Swim with dolphins','Duck tours','Bodies of Water','Caves','Dams']
+
+GROUND_NATURE = list(set(NATURE_PARKS) - set(SEA_NATURE))
+
+OUTDOOR_ACTIVITIES = 'Cross-country Ski Areas,Ski/ Snowboard Areas,Ski & snow tours,Sports Camps/ Clinics,Horseback Riding Stables,Golf Courses,\
+Motorcycle Trails,Hiking Trails,Zoos,Surf Camps,Submarine tours,Parasailing & paragliding,\
+Shark diving,Scuba & snorkelling,Equestrian Trails,Off road/All Terrain Vehicle Trails,\
+Biking Trails,Trails,Beaches,Scenic Drives,Horse-Drawn Carriage Tours,Jogging Paths/ Tracks,\
+Resort Communities,Other outdoor activities,Zipline tours,Stand-Up Paddleboarding,\
+Safaris, Running tours,Canyoning & Rappelling Tours,Air tours,\
+Boat Tours,Hiking & camping tours,Golf tours & tee times,\
+Fishing charters & tours,Eco tours,Climbing tours,Bike tours,Balloon rides,\
+Adrenaline & extreme tours,4WD, ATV & off-road tours,Duck tours,\
+Waterskiing & jetskiing,Swim with dolphins,Surfing, Windsurfing & Kitesurfing,\
+Gear rentals,Water sports'.split(',')
+
+COLD_OUTDOOR = ['Cross-country Ski Areas', 'Ski/ Snowboard Areas','Ski & snow tours']
+
+SEA_OUTDOOR = 'River rafting & tubing,Boat rentals,Dolphin & whale watching,\
+Gondola cruises,Speed boats tours,Kayaking & canoeing, Stand-Up Paddleboarding,Shark diving,\
+Scuba & snorkelling, Waterskiing & jetskiing,Swim with dolphins,Surfing, Windsurfing & Kitesurfing'.split(',') + BOAT_TOURS
+
+LAND_OUTDOOR = list(set(OUTDOOR_ACTIVITIES) - set(SEA_OUTDOOR))
 
 SHOPPING = 'Malls,Shops,Specialty Shops,Art Galleries,Airport Shops,Shopping tours,Fashion shows & tours,Farmers markets,Department Stores,Factory Outlets,Antique Shops,Flea/ Street Markets'.split(',')
 
@@ -21,3 +51,27 @@ TOURS = 'Gondola cruises,Skydiving,Day Trips,Boat rentals,Dolphin & whale watchi
 AMUSEMENT_PARKS = 'Amusement/ Theme Parks,Disney,Water Parks'.split(',')
 
 ZOOS = ' Zoos,Aquariums,Other zoos & aquariums'.split(',')
+
+SIGHTS_AND_LANDMARKS = 'Neighborhoods,Universities,Educational Sites,Government Buildings,\
+Reservations, Historic Walking Areas,Mines,Civic Centers,Ghost Towns,Military Bases/ Facilities,\
+Battlefields,Missions,Farms,Landmarks/ Points of Interest,Architectural Buildings,\
+Monuments/ Statues,Bridges,Scenic Drives,Observation Decks/ Towers,Lookouts,\
+Lighthouses,Ships,Wharfs/ Piers/ Boardwalks,Fountains, Mysterious Sites,Arenas/ Stadiums/ Fields\
+,Race Car Tracks'.split(',')
+
+HISTORIC = ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
+
+AGGREGATE = list(set( BOAT_TOURS + CASINOS + CONCERTS_SHOWS + FOOD_DRINK + MUSEUMS + NATURE_PARKS + OUTDOOR_ACTIVITIES+SHOPPING+SPAS_AND_WELLNESS+TOURS+AMUSEMENT_PARKS))
+
+
+# TODO: CHANGE THIS TO FINER CLUSTERS, SOME ARE STILL GOOD (FOR EXAMPLE: ZOOS AND AMUSEMENT PARKS, NATURE NEEDS TO BE CHANGED!!)
+CLUSTERS = ['SEA_OUTDOOR','LAND_OUTDOOR','CASINOS','CONCERTS_SHOWS','FOOD_DRINK','GROUND_NATURE','COLD_OUTDOOR'
+,'MUSEUMS','NATURE_PARKS','OUTDOOR_ACTIVITIES', 'SHOPPING',
+'SPAS_AND_WELLNESS','TOURS','AMUSEMENT_PARKS','ZOOS']
+
+CLUSTERS_TO_LIST = {'BOAT_TOURS':BOAT_TOURS,'CASINOS':CASINOS,'CONCERTS_SHOWS':CONCERTS_SHOWS,'FOOD_DRINK':FOOD_DRINK,'MUSEUMS':MUSEUMS,'NATURE_PARKS':NATURE_PARKS,'OUTDOOR_ACTIVITIES':OUTDOOR_ACTIVITIES, 'SHOPPING':SHOPPING,
+'SPAS_AND_WELLNESS':SPAS_AND_WELLNESS,'TOURS':TOURS,'AMUSEMENT_PARKS':AMUSEMENT_PARKS,'ZOOS':ZOOS
+	
+
+
+}
