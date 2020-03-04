@@ -10,18 +10,20 @@ import pydotplus
 
 
 
-scores = pd.read_csv('sixty_cities_scores')
+scores = pd.read_csv('hundred_cities')
 feature_cols = scores.columns[1:] 
 diff_scores = [scores]*20
 all_scores = scores.append(diff_scores)
-noise = np.random.normal(0,0.5, size = (len(all_scores),len(feature_cols)))
+variance = pd.DataFrame([scores.var(axis = 0)]*len(all_scores))
+for columns in feature_cols:
+	all_scores[columns] += np.random.normal(0,np.sqrt(variance[columns]/),len(all_scores))
 
-X = all_scores[feature_cols] + noise
+X = all_scores[feature_cols] 
 y = all_scores['city']
 
 X_train , X_test , y_train, y_test = train_test_split(X,y,test_size=0.1,random_state = 1)
 
-clf = DecisionTreeClassifier(max_depth = 5)
+clf = DecisionTreeClassifier(max_depth = 5,criterion='entropy')
 clf = clf.fit(X_train,y_train)
 
 y_pred = clf.predict(X_test)
