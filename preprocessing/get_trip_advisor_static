@@ -36,20 +36,19 @@ def get_location_id(location):
     return response.json()['data'][0]['result_object']['location_id']
 
 
-def get_attractions(location):
+def get_attractions(location_id):
     '''
-    Given a location (usually a city) return the top 30 recommended attractions as suggested by TripAdvisor's attractions API.
+    Given a location_id return the top 30 recommended attractions as suggested by TripAdvisor's attractions API.
 
     Args:
-        location - City whose attractions are to be found.
+        location_id - trip advisor location id
 
     Returns:
         List of dictionaries, each dictionary holding the name of the attraction and various keywords that classify interactions.
     '''
 
     #TODO: PERFORM ONLY ONE CALL TO THE LOCATION API SO THAT WE DON'T GO OVER THE LIMIT
-    location_id = get_location_id(location)
-    print(location)
+    location_id
     url = "https://tripadvisor1.p.rapidapi.com/attractions/list"
     querystring = {"lang":"en_US","currency":"USD","sort":"recommended","location_id":location_id}
 
