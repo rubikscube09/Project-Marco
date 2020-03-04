@@ -112,7 +112,7 @@ def get_attractions(location):
     response = requests.request("GET", url, headers=headers, params=querystring)
     
     response_data = response.json()['data']
-    attractions = [[x['subtype'][i]['name'] for i in range(0,len(x['subtype']))]
-                    for x in response_data if 'name' in x.keys()]
-    return attractions
+    name_desc_img = [(attr['name'],attr['description'],attr['photo']['images']['large']['url']) for attr in response_data if 'name' in attr.keys() and 'photo' in attr.keys()]
+    subtypes = [[x['subtype'][i]['name'] for i in range(0,len(x['subtype']))] for x in response_data if 'name' in x.keys()]
 
+    return name_desc_img,subtypes

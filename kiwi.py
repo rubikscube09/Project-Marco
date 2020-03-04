@@ -35,6 +35,8 @@ def get_flights(fly_from, fly_to,
             }
     
     '''
+
+    #Long and Lat of inputted location
     outbound = geolocator.geocode(fly_from)
     out_lat = outbound.latitude
     out_lon = outbound.longitude
@@ -43,12 +45,14 @@ def get_flights(fly_from, fly_to,
     in_lat = inbound.latitude
     in_lon = inbound.longitude
 
+    #Convert to format lat-long-radius
     fly_from = str(round(out_lat,2)) + '-' + str(round(out_lon,2)) + '-' + str(radius) + radius_format
     fly_to = str(round(in_lat,2)) + '-' + str(round(in_lon,2)) + '-' + str(radius) + radius_format
 
     url = 'https://api.skypicker.com/flights?fly_from={}&fly_to={}&date_from={}&date_to={}&curr={}&sort={}&partner=picky&v=3'.format(\
           fly_from, fly_to, date_from, date_to, 'USD', 'price')
 
+    #Case for roundtrip flights
     if roundtrip:
         assert return_from != None and return_to != None, 'Please specify locations'
         url += '&return_from={}&return_to={}'.format(return_from, return_to)
@@ -62,9 +66,11 @@ def get_flights(fly_from, fly_to,
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
     flight_data = flight_resp_dict['data']
+    # Condition that flight is not too long and not too expensive
     filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
     
     final_data = [None]*len(filt_flight_data)
+    #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
     for i in range(0,len(final_data)):
         final_data[i] = {'price':filt_flight_data[i]['price'], 
                         'Itinerary':[((leg['cityFrom'],leg['cityTo']),
