@@ -52,9 +52,8 @@ def weather(city, date_in_str):
         app_temp_l = data0['apparentTemperatureLow']
         # rainfall probability
         prob_precip = data0['precipProbability']
-        out = ('Apparent Temp High: {}, Apparent Temp Low: {}, '
-        'Chance of Rain: {}'.format(app_temp_h, app_temp_l, prob_precip))
-        return out
+        av_temp = (app_temp_h + app_temp_l) / 2
+        return (av_temp, prob_precip)
 
     else:
         # 16 day forecast weather data using Weatherbit API
@@ -76,6 +75,5 @@ def weather(city, date_in_str):
                 # chance of rain
                 precip = day['precip']
             
-        out = ('Apparent Temp High: {}, Apparent Temp Low: {}, '
-        'Chance of Rain: {}'.format(max_t, min_t, precip))
-        return out
+        av_temp = (max_t + min_t) / 2
+        return (av_temp, precip)
