@@ -17,24 +17,26 @@ def get_location_id(location):
     Returns:
         location_id(int): trip advisor location id of the location.
     '''
-    url = "https://tripadvisor1.p.rapidapi.com/locations/search"
+    try:
+        url = "https://tripadvisor1.p.rapidapi.com/locations/search"
+        querystring = {'query':location,
+                   'location_id' : '1',
+                   'limit' : '1',
+                   'sort' : 'relevance',
+                   'offset' : '0',
+                   'lang' : 'en_US'
+                   }
 
-    querystring = { 'query':location,
-                    'location_id' : '1',
-                    'limit' : '1',
-                    'sort' : 'relevance',
-                    'offset' : '0',
-                    'lang' : 'en_US',
-    }
-
-    headers = {
+        headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
         'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
         }
+        response = requests.request('GET',url,headers=headers,params = querystring)
 
-    response = requests.request('GET',url,headers=headers,params = querystring)
-    return response.json()['data'][0]['result_object']['location_id']
-
+        print(location+" done")
+        return response.json()['data'][0]['result_object']['location_id']
+    except:
+        print(location+" failed")
 
 def get_attractions(location_id):
     '''
@@ -46,21 +48,22 @@ def get_attractions(location_id):
     Returns:
         List of dictionaries, each dictionary holding the name of the attraction and various keywords that classify interactions.
     '''
+    try:
+        url = "https://tripadvisor1.p.rapidapi.com/attractions/list"
+        querystring = {"lang":"en_US","currency":"USD","sort":"recommended","location_id":location_id}
 
-    #TODO: PERFORM ONLY ONE CALL TO THE LOCATION API SO THAT WE DON'T GO OVER THE LIMIT
-    location_id
-    url = "https://tripadvisor1.p.rapidapi.com/attractions/list"
-    querystring = {"lang":"en_US","currency":"USD","sort":"recommended","location_id":location_id}
+        headers = {
+            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+                'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
+            }
 
-    headers = {
-        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
-        }
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        
+        response_data = response.json()['data']
+        name_desc_img = [(attr['name'],attr['description'],attr['photo']['images']['large']['url']) for attr in response_data if 'name' in attr.keys() and 'photo' in attr.keys()]
+        subtypes = [[x['subtype'][i]['name'] for i in range(0,len(x['subtype']))] for x in response_data if 'name' in x.keys()]
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    
-    response_data = response.json()['data']
-    name_desc_img = [(attr['name'],attr['description'],attr['photo']['images']['large']['url']) for attr in response_data if 'name' in attr.keys() and 'photo' in attr.keys()]
-    subtypes = [[x['subtype'][i]['name'] for i in range(0,len(x['subtype']))] for x in response_data if 'name' in x.keys()]
-
-    return name_desc_img,subtypes
+        print(str(location_id)+" done")
+        return name_desc_img,subtypes
+    except:
+        print(str(location_id)+" failed")
