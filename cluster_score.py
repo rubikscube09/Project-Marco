@@ -1,4 +1,6 @@
 import pandas as pd
+import sys
+sys.path.insert(0,'/preprocessing')
 import trip_advisor_consts
 
 def calc_score(attractions_dict,clusters = trip_advisor_consts.CLUSTERS):
@@ -17,7 +19,7 @@ def calc_score(attractions_dict,clusters = trip_advisor_consts.CLUSTERS):
             for i in range(0,len(attractions_dict[city])):
                 for attraction in attractions_dict[city][i]:
                     if attraction in clusters[cluster]:
-                        count += (30 - 0.5*i)/30
+                        count += (len(attractions_dict[city]) - 0.5*i)/len(attractions_dict[city])
             column.append(count)
             if rpt == False:
                 city_column.append(city)

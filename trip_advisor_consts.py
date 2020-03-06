@@ -27,7 +27,7 @@ Beaches,Zoos,Bodies of Water,Canyons,Caverns/ Caves,Dams,Deserts,\
 Forests,Gardens,Geologic Formations,Hot Springs/ Geysers,Islands,Marinas,Mountains,\
 Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks,Nature & wildlife tours'.split(',') + SEA_NATURE
 
-	
+    
 GROUND_NATURE = list(set(NATURE_PARKS) - set(SEA_NATURE))
 
 OUTDOOR_ACTIVITIES = 'Cross-country Ski Areas,Ski/ Snowboard Areas,Ski & snow tours,Sports Camps/ Clinics,Horseback Riding Stables,Golf Courses,\
@@ -48,7 +48,6 @@ LAND_OUTDOOR = list(set(list(set(OUTDOOR_ACTIVITIES) - set(SEA_OUTDOOR)) + NATUR
 
 SHOPPING = 'Malls,Shops,Specialty Shops,Art Galleries,Airport Shops,Shopping tours,Fashion shows & tours,Farmers markets,Department Stores,Factory Outlets,Antique Shops,Flea/ Street Markets'.split(',')
 
-SPAS_AND_WELLNESS = 'Roman baths,Arab baths,Day Spas,Hammams & Turkish baths,Yoga & pilates,Thermal spas & hot springs,Health Clubs,Spas,Onsen Resorts'.split(',')
 
 TOURS = 'Gondola cruises,Skydiving,Day Trips,Boat rentals,Dolphin & whale watching,Speed boats tours,Kayaking & canoeing,Parasailing & paragliding, River rafting & tubing,Scuba & snorkelling,Shark diving,Submarine tours,Scenic Railroads,Tours,Factory Tours,Walking tours,Bus tours,Segway Tours,Water sports,Surfing,Windsurfing & Kitesurfing,Swim with dolphins,Waterskiing & jetskiing,Duck tours,Beer tastings & tours,Coffee & tea tours,Food tours,Wine tastings & tours,4WD,ATV & off-road tours,Adrenaline & extreme tours,Balloon rides,Bike tours,Climbing tours,Eco tours,Fishing charters & tours,Golf tours & tee times,Hiking & camping tours,Nature & wildlife tours,Running tours,Air tours,Archaeology tours,City tours,Cultural tours,Ghost & vampire tours,Helicopter tours,Historical & heritage tours,Hop-on Hop-off tours,Literary,art & music tours,Motorcycle tours,Movie & TV tours,Night tours,Ports of Call tours,Private tours,Rail tours,Self-guided tours & rentals,Skip-the-Line tours,Vespa,scooter & moped tours,Bar,club & pub tours,Fashion shows & tours,Shopping tours,Horse-Drawn Carriage Tours,Photography Tours,Stand-Up Paddleboarding,Canyoning & Rappelling Tours,Distillery Tours,Boat Tours,Zipline tours'.split(',')
 
@@ -68,23 +67,22 @@ Lighthouses,Ships,Wharfs/ Piers/ Boardwalks,Fountains, Mysterious Sites,Arenas/ 
 HISTORIC = ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
 
 CLUSTERS = {'SEA_OUTDOOR':SEA_OUTDOOR,
-			'LAND_OUTDOOR':LAND_OUTDOOR,
-			'CASINOS':CASINOS,
-			'CONCERTS_SHOWS':CONCERTS_SHOWS,
-			'FOOD_DRINK':FOOD_DRINK,
-			'GROUND_NATURE':GROUND_NATURE,
-			'COLD_OUTDOOR':COLD_OUTDOOR,
-			'MUSEUMS':MUSEUMS,
-			'NATURE_PARKS':NATURE_PARKS,
-			'OUTDOOR_ACTIVITIES':OUTDOOR_ACTIVITIES, 
-			'SHOPPING':SHOPPING,
-			'HISTORIC':HISTORIC,
-			'SPAS_AND_WELLNESS':SPAS_AND_WELLNESS,
-			'TOURS':TOURS,
-			'AMUSEMENT_PARKS':AMUSEMENT_PARKS,
-			'ZOOS':ZOOS,
-			'SEA_NATURE':SEA_NATURE,
-			'SIGHTS_AND_LANDMARKS':SIGHTS_AND_LANDMARKS}
+            'LAND_OUTDOOR':LAND_OUTDOOR,
+            'CASINOS':CASINOS,
+            'CONCERTS_SHOWS':CONCERTS_SHOWS,
+            'FOOD_DRINK':FOOD_DRINK,
+            'GROUND_NATURE':GROUND_NATURE,
+            'COLD_OUTDOOR':COLD_OUTDOOR,
+            'MUSEUMS':MUSEUMS,
+            'NATURE_PARKS':NATURE_PARKS,
+            'OUTDOOR_ACTIVITIES':OUTDOOR_ACTIVITIES, 
+            'SHOPPING':SHOPPING,
+            'HISTORIC':HISTORIC,
+            'TOURS':TOURS,
+            'AMUSEMENT_PARKS':AMUSEMENT_PARKS,
+            'ZOOS':ZOOS,
+            'SEA_NATURE':SEA_NATURE,
+            'SIGHTS_AND_LANDMARKS':SIGHTS_AND_LANDMARKS}
 
 
 

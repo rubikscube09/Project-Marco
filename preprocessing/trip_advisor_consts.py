@@ -3,8 +3,6 @@ Windsurfing & Kitesurfing,Submarine tours,Shark diving,Scuba & snorkelling,River
 Parasailing & paragliding,Water sports,Speed boats tours,Duck tours,Boat Tours,Boat rentals,\
 Dolphin & whale watching,Fishing charters & tours,Gondola cruises'.split(',')
 
-
-
 CASINOS = ['Casinos']
 
 CONCERTS_SHOWS = 'Jazz Bars,Performances,Dinner Theaters,Concerts,Operas,Symphonies, Ballets,Theaters,Cabaret,Cirque du Soleil,Luaus,Sporting events & packages,Theater & musicals,Blues Bars,Piano Bar,Country Western Bars,Comedy Club'.split(',')
