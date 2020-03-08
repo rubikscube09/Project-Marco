@@ -1,6 +1,7 @@
 import current_location
 import vacation_id3
 import pandas as pd
+#ADD IN WEATHER INFORMATION!!!!
 import hotels
 from datetime import datetime, timedelta
 
