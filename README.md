@@ -1,5 +1,14 @@
-Marco
+# Project Marco
+Project Marco is an application that allows for more intelligent vacation planning,
 
+## Getting Started
+
+###Prerequisites
+To use project Marco, you will need to run the following commands 
+
+```
+pip3 install sklearn
+```
 - Data
     - List countries English-speaking population.html -- language.py
     - language.json -- language.py
