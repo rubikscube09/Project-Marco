@@ -1,5 +1,7 @@
-import pandas as pd 
-import numpy as np 
+import pandas as pd
+import time
+import numpy as np
+from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
@@ -9,7 +11,33 @@ from IPython.display import Image
 from scipy import sparse
 import pydotplus
 
-scores = pd.read_csv('full_country_score')
+RENAME_DIC={
+        'NATURE_PARKS': 'Parks',
+        'TOURS': 'Organized tours',
+        'COLD_OUTDOOR': 'Cold weather',
+        'SIGHTS_AND_LANDMARKS': 'Sightseeing',
+        'AMUSEMENT_PARKS': 'Entertainment',
+        'SHOPPING': 'Shopping',
+        'LAND_OUTDOOR': 'The outdoors',
+        'ZOOS':  'Animals',
+        'GROUND_NATURE': 'Nature',
+        'CASINOS': 'Nightlife',
+        'OUTDOOR_ACTIVITIES': 'Sports and recreation',
+        'HISTORIC': 'History',
+        'SEA_NATURE': 'Oceans and marine life',
+        'SEA_OUTDOOR': 'The beach',
+        'CONCERTS_SHOWS': 'Music and theater',
+        'FOOD_DRINK': 'Restaurants and bars',
+        'MUSEUMS': 'Culture and museums'
+        }
+
+scores = pd.read_csv('full_country_score.csv')
+
+scaler=preprocessing.MinMaxScaler()
+
+for col in [col for col in scores.columns if col!='city']:
+    scores[col]=(scores[col]-scores[col].min())/(scores[col].max()-scores[col].min())*10
+
 #scores.drop(['CASINOS'],axis= 1)
 all_scores = pd.DataFrame().append([scores]*200)
 feature_cols = scores.columns[1:] 
@@ -35,11 +63,12 @@ clf = clf.fit(X_train,y_train)
 y_pred = clf.predict(X_test)
 
 
-def traverse (estimator = clf,feature_cols=feature_cols): 
+def traverse (k, estimator = clf,feature_cols=feature_cols): 
     '''
     Decision tree traversal. Sklearn uses absolute paths to store nodes. For example 
     the numbers 0,1,2, ... , number of nodes -1 are all specific nodes. It's really 
-    stupid, but all the code below is based on that. Node 0 is the root, and everything else isn't easy to identify.
+    stupid, but all the code below is based on that. Node 0 is the root, and
+    everything else isn't easy to identify.
     '''
     tree_ = estimator.tree_ # The actual tree structure.
     n_nodes = estimator.tree_.node_count # Child structure : leftchild[i] is the left child to node with absolute path i. etc.
@@ -50,20 +79,35 @@ def traverse (estimator = clf,feature_cols=feature_cols):
 
     feature_names = [feature_cols[i] for i in feature]# Gives names to feature columns rather than numbers.
 
-    leave_id = estimator.apply(X_test) #Identifies all the possible leaf nodes of the dataset. 
+    leave_id = estimator.apply(X_test) #Identifies all the possible leaf nodes of the dataset.
+
+    city_output=set([])
+    asked_dic={}
+
+    def add_noise():
+        for k,v in asked_dic.items():
+            asked_dic[k]=v+np.random.uniform(-min(3,v/3),min(v/3,3))
 
     def recurse(node):
+        
         if node in leave_id: #Base case: Hitting a leaf
             return clf.classes_[np.argmax(tree_.value[node])]
         else:#User input.
-            print('Is your' + str(feature_names[node]) + '<='+ str(threshold[node]))
-            inp = input()
-            if float(inp) <= threshold[node]:
+            if feature_names[node] in asked_dic:
+                response=asked_dic[feature_names[node]]
+            else:
+                response=float(input('Score for '+str(RENAME_DIC[feature_names[node]])+': '))
+                asked_dic[feature_names[node]]=response
+            if response <= threshold[node]:
                 return recurse(node = children_left[node])
             else:
                 return recurse(node = children_right[node])
-    #prints this to the city
-    print(recurse(0))
+
+    for i in range(k):
+        add_noise()
+        city_output.add(recurse(0))
+        print("did one")
+    return city_output
         
 
     # First let's retrieve the decision path of each sample. The decision_path
@@ -71,6 +115,6 @@ def traverse (estimator = clf,feature_cols=feature_cols):
     # indicator matrix at the position (i, j) indicates that the sample i goes
     # through the node j.
 
-    node_indicator = estimator.decision_path(X_test)
+    #node_indicator = estimator.decision_path(X_test)
 
     # Similarly, we can also have the leaves ids reached by each sample.
