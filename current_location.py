@@ -34,4 +34,3 @@ if connection == True:
     city = location_json['city']
     lat = location_json['latitude']
     lon = location_json['longitude']
-    print(city, lat, lon)
