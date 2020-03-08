@@ -33,7 +33,18 @@ RENAME_DIC={
 
 scores = pd.read_csv('full_country_score.csv')
 
-scaler=preprocessing.MinMaxScaler()
+STD_DICT=dict(scores.std(axis=0, skipna=True))
+MEAN_DICT=dict(scores.mean(axis=0,skipna=True))
+RANGE_DICT={}
+
+for k,v in STD_DICT.items():
+    RANGE_DICT[k]=(MEAN_DICT[k]-2*v,MEAN_DICT[k]-v,MEAN_DICT[k],MEAN_DICT[k]+v,MEAN_DICT[k]+2*v)
+
+def get_score(column):
+    i=int(input('1-5 rating of '+str(RENAME_DIC[column])+': '))
+    return RANGE_DICT[column][i-1]
+
+
 
 for col in [col for col in scores.columns if col!='city']:
     scores[col]=(scores[col]-scores[col].min())/(scores[col].max()-scores[col].min())*10
@@ -62,31 +73,31 @@ clf = clf.fit(X_train,y_train)
 
 y_pred = clf.predict(X_test)
 
+tree_ = clf.tree_ # The actual tree structure.
+n_nodes = clf.tree_.node_count # Child structure : leftchild[i] is the left child to node with absolute path i. etc.
+children_left = clf.tree_.children_left
+children_right = clf.tree_.children_right
+feature = clf.tree_.feature # Features: Feature[i] returns the column number/feature on which node i is being split.
+threshold = clf.tree_.threshold # Threshold: The value at which the split occurs.
 
-def traverse (k, estimator = clf,feature_cols=feature_cols): 
+feature_names = [feature_cols[i] for i in feature]# Gives names to feature columns rather than numbers.
+
+leave_id = clf.apply(X_test) #Identifies all the possible leaf nodes of the dataset.
+
+def traverse (k):
     '''
     Decision tree traversal. Sklearn uses absolute paths to store nodes. For example 
     the numbers 0,1,2, ... , number of nodes -1 are all specific nodes. It's really 
     stupid, but all the code below is based on that. Node 0 is the root, and
     everything else isn't easy to identify.
     '''
-    tree_ = estimator.tree_ # The actual tree structure.
-    n_nodes = estimator.tree_.node_count # Child structure : leftchild[i] is the left child to node with absolute path i. etc.
-    children_left = estimator.tree_.children_left
-    children_right = estimator.tree_.children_right
-    feature = estimator.tree_.feature # Features: Feature[i] returns the column number/feature on which node i is being split.
-    threshold = estimator.tree_.threshold # Threshold: The value at which the split occurs.
-
-    feature_names = [feature_cols[i] for i in feature]# Gives names to feature columns rather than numbers.
-
-    leave_id = estimator.apply(X_test) #Identifies all the possible leaf nodes of the dataset.
 
     city_output=set([])
     asked_dic={}
 
     def add_noise():
         for k,v in asked_dic.items():
-            asked_dic[k]=v+np.random.uniform(-min(3,v/3),min(v/3,3))
+            asked_dic[k]=asked_dic[k]+np.random.normal(MEAN_DICT[k],STD_DICT[k]/2)
 
     def recurse(node):
         
@@ -96,17 +107,18 @@ def traverse (k, estimator = clf,feature_cols=feature_cols):
             if feature_names[node] in asked_dic:
                 response=asked_dic[feature_names[node]]
             else:
-                response=float(input('Score for '+str(RENAME_DIC[feature_names[node]])+': '))
+                response=get_score(feature_names[node])
                 asked_dic[feature_names[node]]=response
             if response <= threshold[node]:
                 return recurse(node = children_left[node])
             else:
                 return recurse(node = children_right[node])
 
-    for i in range(k):
+    counter=0
+    while len(city_output)<k and counter<3*k:
         add_noise()
         city_output.add(recurse(0))
-        print("did one")
+        counter=counter+1
     return city_output
         
 
