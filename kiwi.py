@@ -11,7 +11,7 @@ def get_flights(fly_from, fly_to,
                 budget=1500, currency='USD',
                 people=0, 
                 max_duration=50, 
-                radius=50, radius_format= 'km',):
+                radius=50, radius_format= 'km'):
     '''
     Gets possible flights given search parameters.
     Args:
@@ -83,7 +83,7 @@ def get_flights(fly_from, fly_to,
                         'end_dest':(filt_flight_data[i]['cityTo'],filt_flight_data[i]['flyTo'],filt_flight_data[i]['countryTo']['name'])
                         }
 
-    return final_data
+    return sorted(final_data, key=lambda data: data['price'])
 
 
 
