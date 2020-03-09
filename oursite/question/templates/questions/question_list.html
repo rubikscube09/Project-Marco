@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<p>
+    This is a list of questions in the database:
+</p>
+
 {% for instance in object_list %}
     <p>{{instance.id}} - <a href='{{ instance.get_absolute_url }}'>{{ instance.question }}</a></p>
 {% endfor %}

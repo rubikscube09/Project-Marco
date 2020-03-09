@@ -10,3 +10,8 @@ class Question(models.Model):
 
     def get_absolute_url(self):
         return reverse('questions:question-list', kwargs={'id': self.id})
+
+class OriginInfo(models.Model):
+    location = models.CharField(max_length=20)
+    airport = models.CharField(max_length=10)
+    date = models.DateField()

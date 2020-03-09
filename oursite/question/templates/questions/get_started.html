@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<h2>{{ object.question }}</h2>
+<form method='POST'> {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Submit'/>
+</form>
+{% endblock %}
