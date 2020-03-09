@@ -11,5 +11,6 @@ urlpatterns = [
     path('', question_list_view),
     path('genie/<int:id>/', dynamic_lookup_view, name='question-list'),
     path('getting-started/', question_location),
-    path('origin/', update_origin_info)
+    path('origin/', update_origin_info),
+    path('test/', )
 ]
