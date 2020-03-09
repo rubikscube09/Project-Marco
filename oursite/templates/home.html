@@ -1,18 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Project Marco</h1>
+<h1>{{ title }}</h1>
+
+<p>{{ msg }}</p>
+
+<p><a href="/questions/genie/1/">Getting Started</a></p>
 <p> To log into django's backend, use username: marco and password: polo!!!!</p>
-
-<p>Welcome to Marco</p>
-<p>
-{{ msg }}, {{ from }}
-</p>
-
-<ul>
-    {% for member in members %}
-    <li>{{ member }}</li>
-    {% endfor %}
-</ul>
 
 {% endblock %}

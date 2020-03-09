@@ -2,5 +2,8 @@
 
 {% block content %}
 <h1>{{ object.question }}</h1>
-<h1>{{ object.answer }}</h1>
+<form method='POST' action="../{{ object.id|add:'1'}}/"> {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Submit'/>
+</form>
 {% endblock %}

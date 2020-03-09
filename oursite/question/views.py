@@ -15,7 +15,11 @@ def question_create_view(request):
 
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(Question, id=id)
-    context = {'object': obj}
+    form = QuestionForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        form = QuestionForm()
+    context = {'object': obj, 'form': form}
     return render(request, 'questions/question_detail.html', context)
 
 def question_list_view(request):
