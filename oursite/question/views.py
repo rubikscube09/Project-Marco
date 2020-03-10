@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 from . import hotels
 from . import kiwi
+from . import current_location
+from . import weather_data
 
 current_loc='chicago'
 num_adults=5
