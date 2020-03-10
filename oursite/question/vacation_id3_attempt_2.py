@@ -79,8 +79,12 @@ feature_names = [feature_cols[i] for i in feature]# Gives names to feature colum
 
 leave_id = clf.apply(X_test) #Identifies all the possible leaf nodes of the dataset.
 
+def add_noise(dictionary):
+    for k,v in dictionary.items():
+        dictionary[k]=dictionary[k]+np.random.normal(0,STD_DICT[k]/2)
 
 def look_for_city(node, dictionary):
+    add_noise(dictionary)
     if node in leave_id:
         return (False, clf.classes_[np.argmax(tree_.value[node])])
     else:
