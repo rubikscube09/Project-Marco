@@ -3,7 +3,8 @@ from .views import (
     question_list_view,
     dynamic_lookup_view, 
     question_location,
-    update_origin_info
+    update_origin_info,
+    next_question
     )
 
 app_name = 'questions'
@@ -11,5 +12,6 @@ urlpatterns = [
     path('', question_list_view),
     path('genie/<int:id>/', dynamic_lookup_view, name='question-list'),
     path('getting-started/', question_location),
-    path('origin/', update_origin_info)
+    path('origin/', update_origin_info),
+    path('test/<int:id>/', next_question)
 ]

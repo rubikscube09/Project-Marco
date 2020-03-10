@@ -2,10 +2,12 @@
 
 {% block content %}
 
-<ul>
+<span>
+<ul style="list-style-type:none; margin:14px; padding:14px;">
 {% for member in team %}
     <li>{{ member }}</li>
 {% endfor %}
 </ul>
+</span>
 
 {% endblock %}

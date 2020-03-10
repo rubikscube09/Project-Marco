@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<style>
+    h1{font: bold 44px Helvetica;
+       text-align: center;}
+    p{text-align: center;}
+</style>
 
+<h1>{{ title }}</h1>
 <p>{{ msg }}</p>
 
-<p><a href="/questions/getting-started/">Getting Started</a></p>
+<p><a href="/questions/test/2/">Getting Started (to ID3 Testing Portal)</a></p>
 <p> To log into django's backend, use username: marco and password: polo!!!!</p>
 
 {% endblock %}

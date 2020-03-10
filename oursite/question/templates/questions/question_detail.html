@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+li {
+  float: left;
+  padding: 14px 16px;
+}
+</style>
+
 <h1>{{ object.question }}</h1>
-<form method='POST' action="../{{ object.id|add:'1'}}/"> {% csrf_token %}
+<form method='POST'> {% csrf_token %}
     {{ form.as_p }}
     <input type='submit' value='Submit'/>
 </form>
+
 {% endblock %}
