@@ -3,7 +3,14 @@ from .models import Question, OriginInfo
 from .forms import QuestionForm, OriginInfoForm
 from . import vacation_id3_attempt_2
 import json
+import numpy as np
+import pandas as pd
+from . import hotels
+from . import kiwi
 
+current_loc='chicago'
+num_adults=5
+#FIND WAY TO ENTER THIS IN USING DJANGO
 
 REDIRECT_DIC={
         'NATURE_PARKS': 2,
@@ -104,29 +111,75 @@ def run_question(dictionary, id):
         return qn
 
 
-def next_question(request, id):
-    '''
-    Go from one question to another
-    How to store the dictionary
-    '''
+def get_info(cities_set):
+    df=pd.read_csv('question/destinations_with_static_info.csv')
+    df=df[df['city'].isin(cities_set)]
+    df['hotels']=df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
+    df['flights']=df.apply(lambda row: kiwi.get_flights('chicago', row['city'], 
+                '01/01/21', '01/05/21', 
+                roundtrip = True,
+                return_from=row['city'], return_to=current_loc, 
+                adults=num_adults, children=0, infants=0,
+                budget=5000, currency='USD',
+                people=0, 
+                max_duration=50, 
+                radius=50, radius_format= 'km'), axis=1)
+    return(df)
 
-    with open('result.json', 'r') as f:
-        dictionary = json.load(f)
-    obj = get_object_or_404(Question, id=id)
-    form = QuestionForm(request.POST or None, instance=obj)
-    if form.is_valid():
-        form.save()
-        new_qn = run_question(dictionary, id)
-        if new_qn not in REDIRECT_DIC:
-            # clear out result.json
-            dictionary = {}
-            with open('result.json', 'w') as fp:
-                json.dump(dictionary, fp)
-            result_context = {'place': new_qn}
-            return render(request, 'questions/result.html', result_context)
-            #return redirect(reverse('questions:result', kwargs={'place': new_qn}))
-        new_id = REDIRECT_DIC[new_qn]
-        return redirect('../../test/{}/'.format(new_id))
-    # next two lines may not be necessary
-    context = {'object': obj, 'form': form}
-    return render(request, 'questions/question_detail.html', context)
+
+
+def get_cities(request, id):
+    global city_set
+    global count
+    city_set=set([])
+    count=0
+
+    def next_question(request, id):
+        '''
+        Go from one question to another
+        How to store the dictionary
+        '''
+        global city_set
+        global count
+
+        with open('result.json', 'r') as f:
+            dictionary = json.load(f)
+        obj = get_object_or_404(Question, id=id)
+        form = QuestionForm(request.POST or None, instance=obj)
+        if form.is_valid():
+            print(city_set)
+            print(count)
+            form.save()
+            new_qn = run_question(dictionary, id)
+            if new_qn in REDIRECT_DIC:
+                new_id = REDIRECT_DIC[new_qn]
+                return redirect('../../test/{}/'.format(new_id))
+            elif len(city_set)>=3 or count>=10:
+                context={}
+                df=get_info(city_set)
+                cities=list(df['city'])
+                images=list(df['image'])
+                texts=list(df['text'])
+                flights=list(df['flights'])
+                hotels=list(df['hotels'])
+                
+                for i in range(len(cities)):
+                    city_i='city'+str(i+1)
+                    text_i='text'+str(i+1)
+                    hotel_costi='hotel_cost'+str(i+1)
+                    flight_costi='flight_cost'+str(i+1)
+                    context[city_i]=cities[i].title()
+                    context[text_i]=str(texts[i])[1:]
+                    context[hotel_costi]=str('We recommend '+hotels[i][0]+'for '+hotels[i][1]+' a night')
+                    context[flight_costi]=str(flights[i])
+                    
+                    
+                print(context)
+                return render(request, 'questions/result.html', context)
+            else:
+                city_set.add(new_qn)
+                count=count+1
+                return next_question(request, id)
+        context = {'object': obj, 'form': form}
+        return render(request, 'questions/question_detail.html', context)
+    return next_question(request, id)
