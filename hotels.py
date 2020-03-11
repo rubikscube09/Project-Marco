@@ -33,6 +33,7 @@ def get_location_id(location):
         }
 
     response = requests.request('GET',url,headers=headers,params = querystring)
+    print(response)
     return response.json()['data'][0]['result_object']['location_id']
 
 def get_hotels(location, 
