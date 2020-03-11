@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Is {{ object.location }} your current location?</p>
+<p>How many people are you travelling with:</p>
 <form method='POST'> {% csrf_token %}
     {{ form.as_p }}
     <input type='submit' value='Submit'/>

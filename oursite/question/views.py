@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, OriginInfo
-from .forms import QuestionForm, OriginInfoForm
+from .forms import QuestionForm, OriginInfoForm, AltOriginInfoForm, Alt1OriginInfoForm, Alt2OriginInfoForm
 from . import vacation_id3_attempt_2
 import json
 import numpy as np
@@ -42,12 +42,12 @@ def question_location(request):
     location?". Redirect to different pages based on user response.
     '''
 
-    obj = get_object_or_404(Question, id=1)
-    form = QuestionForm(request.POST or None, instance=obj)
+    obj = get_object_or_404(OriginInfo, id=1)
+    form = OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        if form.cleaned_data['answer'] == 0:
-            return redirect('../genie/2/')
+        if form.cleaned_data['answer'] == 'Y':
+            return redirect('../date/')
         else:
             # update the origin info
             return redirect('../origin/')
@@ -56,13 +56,35 @@ def question_location(request):
     return render(request, 'questions/get_started.html', context)
 
 def update_origin_info(request):
-    obj = get_object_or_404(OriginInfo, id=3)
-    form = OriginInfoForm(request.POST or None, instance=obj)
+    obj = get_object_or_404(OriginInfo, id=1)
+    form = AltOriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        form = OriginInfoForm()
+        return redirect('../date/')
+        #form = OriginInfoForm()
     context = {'form': form, 'object': obj}
     return render(request, 'questions/origin.html', context)
+
+def start_date_view(request):
+    obj = get_object_or_404(OriginInfo, id=1)
+    form = Alt1OriginInfoForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('../num_travelers/')
+        form = Alt1OriginInfoForm()
+    context = {'form': form, 'object:': obj}
+    return render(request, 'questions/date.html', context)
+
+
+def num_travelers_view(request):
+    obj = get_object_or_404(OriginInfo, id=1)
+    form = Alt2OriginInfoForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('../genie/2/')
+        #form = Alt2OriginInfoForm()
+    context = {'form': form, 'object:': obj}
+    return render(request, 'questions/num_travelers.html', context)
 
 
 def question_list_view(request):

@@ -20,7 +20,15 @@ class Question(models.Model):
     def clean_answer(self):
         answer = self.cleaned_data.get('answer')
 
+
 class OriginInfo(models.Model):
+    id = models.IntegerField(primary_key=True)
     location = models.CharField(max_length=20)
     airport = models.CharField(max_length=10)
     date = models.DateField()
+    num_travelers = models.IntegerField(max_length=1)
+    choices = [('Y', 'Yes'), ('N', 'No')]
+    answer = models.CharField(max_length=1, choices=choices)
+
+    def clean_answer(self):
+        answer = self.clean_data.get('answer')
