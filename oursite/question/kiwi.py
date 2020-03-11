@@ -4,11 +4,12 @@ from geopy.geocoders import Nominatim
 geolocator = Nominatim(user_agent='Marco')
 
 def get_flights(fly_from, fly_to, 
-                date_from = '25/04/2020', date_to = '25/04/2020', 
+                date_from, date_to, 
                 roundtrip = False,
                 return_from=None, return_to=None, 
                 adults=1, children=0, infants=0,
                 budget=1500, currency='USD',
+                people=0, 
                 max_duration=50, 
                 radius=50, radius_format= 'km'):
     '''
@@ -64,25 +65,28 @@ def get_flights(fly_from, fly_to,
 
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
-    flight_data = flight_resp_dict['data']
-    # Condition that flight is not too long and not too expensive
-    filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
-    
-    final_data = [None]*len(filt_flight_data)
-    #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
-    for i in range(0,len(final_data)):
-        final_data[i] = {'price':filt_flight_data[i]['price'], 
-                        'Itinerary':[((leg['cityFrom'],leg['cityTo']),
-                                    (leg['flyFrom'],leg['flyTo']),
-                                     leg['airline']+str(leg['flight_no']))
-                                    for leg in filt_flight_data[i]['route']],
-                        "total_duration":float(filt_flight_data[i]['fly_duration'].split('h')[0]),
-                        "link":filt_flight_data[i]['deep_link'],
-                        'start_dest':(filt_flight_data[i]['cityFrom'],filt_flight_data[i]['flyFrom'],filt_flight_data[i]['countryFrom']['name']),
-                        'end_dest':(filt_flight_data[i]['cityTo'],filt_flight_data[i]['flyTo'],filt_flight_data[i]['countryTo']['name'])
-                        }
+    try:
+        flight_data = flight_resp_dict['data']
+        # Condition that flight is not too long and not too expensive
+        filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
+        
+        final_data = [None]*len(filt_flight_data)
+        #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
+        for i in range(0,len(final_data)):
+            final_data[i] = {'price':filt_flight_data[i]['price'], 
+                            'Itinerary':[((leg['cityFrom'],leg['cityTo']),
+                                        (leg['flyFrom'],leg['flyTo']),
+                                         leg['airline']+str(leg['flight_no']))
+                                        for leg in filt_flight_data[i]['route']],
+                            "total_duration":float(filt_flight_data[i]['fly_duration'].split('h')[0]),
+                            "link":filt_flight_data[i]['deep_link'],
+                            'start_dest':(filt_flight_data[i]['cityFrom'],filt_flight_data[i]['flyFrom'],filt_flight_data[i]['countryFrom']['name']),
+                            'end_dest':(filt_flight_data[i]['cityTo'],filt_flight_data[i]['flyTo'],filt_flight_data[i]['countryTo']['name'])
+                            }
 
-    return sorted(final_data, key=lambda data: data['price'])
+        return sorted(final_data, key=lambda data: data['price'])
+    except:
+        return 'Flight data unavailable'
 
 
 

@@ -1,46 +1,9 @@
 import requests
 import time
+import re
 from geopy.geocoders import Nominatim 
 
-<<<<<<< HEAD
-# Getting Hotels and associated information using the TripAdvisor hotels and location API. 500 calls/day , 1 call/second 
-# Might be 250/day because we have to call 2/3 APIs
-
-def get_location_id(location):
-
-    '''
-    Gets the tripadvisor location_id
-
-    Args:
-        location (Str): Name of location whose trip advisor id is needed. 
-                        location input is usually a city name, but I'm not sure if we need to do longiude and latitude.
-
-    Returns:
-        location_id(int): trip advisor location id of the location.
-    '''
-    url = "https://tripadvisor1.p.rapidapi.com/locations/search"
-
-    querystring = { 'query':location,
-                    'location_id' : '1',
-                    'limit' : '1',
-                    'sort' : 'relevance',
-                    'offset' : '0',
-                    'lang' : 'en_US',
-    }
-
-    headers = {
-        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
-        }
-
-    response = requests.request('GET',url,headers=headers,params = querystring)
-    print(response)
-    return response.json()['data'][0]['result_object']['location_id']
-
-def get_hotels(location, 
-=======
 def get_hotels(location_id, 
->>>>>>> 3aedfe6a0a64a75018a02c98879066257bdc5b82
                num_adults,
                check_in,nights,
                rooms=1,
@@ -87,5 +50,5 @@ def get_hotels(location_id,
     response = requests.request("GET", url, headers=headers, params=querystring)
     resp_data = response.json()['data']
     #Sort output by average price (low price + high price/2)
-    resp_data_price_sort = sorted(resp_data, key = lambda x: (int(x['price'].split()[0].strip('$')) + int(x['price'].split()[2].strip('$')))/2)
+    resp_data_price_sort = sorted(resp_data, key = lambda x: (int(re.sub(',','',x['price'].split()[0].strip(',$,'))) + int(re.sub(',','',x['price'].split()[2].strip(',$,')))/2))
     return [(data['name'],data['price'],(data['latitude'],data['longitude'])) for data in resp_data_price_sort]

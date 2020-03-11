@@ -3,6 +3,8 @@ Windsurfing & Kitesurfing,Submarine tours,Shark diving,Scuba & snorkelling,River
 Parasailing & paragliding,Water sports,Speed boats tours,Duck tours,Boat Tours,Boat rentals,\
 Dolphin & whale watching,Fishing charters & tours,Gondola cruises'.split(',')
 
+
+
 CASINOS = ['Casinos']
 
 CONCERTS_SHOWS = 'Jazz Bars,Performances,Dinner Theaters,Concerts,Operas,Symphonies, Ballets,Theaters,Cabaret,Cirque du Soleil,Luaus,Sporting events & packages,Theater & musicals,Blues Bars,Piano Bar,Country Western Bars,Comedy Club'.split(',')
@@ -14,7 +16,7 @@ MUSEUMS = 'Observatories/ Planetariums,Military Museums,Museums,Natural History 
 NATURE_PARKS = 'National Parks,Biking Trails,Equestrian Trails,Hiking Trails,\
 Beaches,Zoos,Aquariums,Bodies of Water,Canyons,Caverns/ Caves,Dams,Deserts,\
 Forests,Gardens,Geologic Formations,Hot Springs/ Geysers,Islands,Marinas,Mountains,\
-Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks,Nature & wildlife tours'.split(',') + SEA_NATURE
+Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks,Nature & wildlife tours'.split(',') 
 
 SEA_NATURE = ['Beaches', 'Bodies of Water', 'Reefs','Islands','Marinas','Swim with dolphins','Duck tours','Bodies of Water','Caves','Dams']
 
@@ -25,11 +27,11 @@ Motorcycle Trails,Hiking Trails,Zoos,Surf Camps,Submarine tours,Parasailing & pa
 Shark diving,Scuba & snorkelling,Equestrian Trails,Off road/All Terrain Vehicle Trails,\
 Biking Trails,Trails,Beaches,Scenic Drives,Horse-Drawn Carriage Tours,Jogging Paths/ Tracks,\
 Resort Communities,Other outdoor activities,Zipline tours,Stand-Up Paddleboarding,\
-Safaris, Running tours,Canyoning & Rappelling Tours,Air tours,\
+Safaris,Running tours,Canyoning & Rappelling Tours,Air tours,\
 Boat Tours,Hiking & camping tours,Golf tours & tee times,\
 Fishing charters & tours,Eco tours,Climbing tours,Bike tours,Balloon rides,\
-Adrenaline & extreme tours,4WD, ATV & off-road tours,Duck tours,\
-Waterskiing & jetskiing,Swim with dolphins,Surfing, Windsurfing & Kitesurfing,\
+Adrenaline & extreme tours,4WD,ATV & off-road tours,Duck tours,\
+Waterskiing & jetskiing,Swim with dolphins,Surfing,Windsurfing & Kitesurfing,\
 Gear rentals,Water sports'.split(',')
 
 COLD_OUTDOOR = ['Cross-country Ski Areas', 'Ski/ Snowboard Areas','Ski & snow tours']
@@ -44,7 +46,7 @@ SHOPPING = 'Malls,Shops,Specialty Shops,Art Galleries,Airport Shops,Shopping tou
 
 SPAS_AND_WELLNESS = 'Roman baths,Arab baths,Day Spas,Hammams & Turkish baths,Yoga & pilates,Thermal spas & hot springs,Health Clubs,Spas,Onsen Resorts'.split(',')
 
-TOURS = 'Gondola cruises,Skydiving,Day Trips,Boat rentals,Dolphin & whale watching,Speed boats tours,Kayaking & canoeing,Parasailing & paragliding, River rafting & tubing,Scuba & snorkelling,Shark diving,Submarine tours,Scenic Railroads,Tours,Factory Tours,Walking tours,Bus tours,Segway Tours,Water sports,Surfing, Windsurfing & Kitesurfing,Swim with dolphins,Waterskiing & jetskiing,Duck tours,Beer tastings & tours,Coffee & tea tours,Food tours,Wine tastings & tours,4WD, ATV & off-road tours,Adrenaline & extreme tours,Balloon rides,Bike tours,Climbing tours,Eco tours,Fishing charters & tours,Golf tours & tee times,Hiking & camping tours,Nature & wildlife tours,Running tours,Air tours,Archaeology tours,City tours,Cultural tours,Ghost & vampire tours,Helicopter tours,Historical & heritage tours,Hop-on Hop-off tours,Literary, art & music tours,Motorcycle tours,Movie & TV tours,Night tours,Ports of Call tours,Private tours,Rail tours,Self-guided tours & rentals,Skip-the-Line tours,Vespa, scooter & moped tours,Bar, club & pub tours,Fashion shows & tours,Shopping tours,Horse-Drawn Carriage Tours,Photography Tours,Stand-Up Paddleboarding,Canyoning & Rappelling Tours,Distillery Tours,Boat Tours,Zipline tours'.split(',')
+TOURS = 'Gondola cruises,Skydiving,Day Trips,Boat rentals,Dolphin & whale watching,Speed boats tours,Kayaking & canoeing,Parasailing & paragliding,River rafting & tubing,Scuba & snorkelling,Shark diving,Submarine tours,Scenic Railroads,Tours,Factory Tours,Walking tours,Bus tours,Segway Tours,Water sports,Surfing, Windsurfing & Kitesurfing,Swim with dolphins,Waterskiing & jetskiing,Duck tours,Beer tastings & tours,Coffee & tea tours,Food tours,Wine tastings & tours,4WD, ATV & off-road tours,Adrenaline & extreme tours,Balloon rides,Bike tours,Climbing tours,Eco tours,Fishing charters & tours,Golf tours & tee times,Hiking & camping tours,Nature & wildlife tours,Running tours,Air tours,Archaeology tours,City tours,Cultural tours,Ghost & vampire tours,Helicopter tours,Historical & heritage tours,Hop-on Hop-off tours,Literary, art & music tours,Motorcycle tours,Movie & TV tours,Night tours,Ports of Call tours,Private tours,Rail tours,Self-guided tours & rentals,Skip-the-Line tours,Vespa, scooter & moped tours,Bar, club & pub tours,Fashion shows & tours,Shopping tours,Horse-Drawn Carriage Tours,Photography Tours,Stand-Up Paddleboarding,Canyoning & Rappelling Tours,Distillery Tours,Boat Tours,Zipline tours'.split(',')
 
 AMUSEMENT_PARKS = 'Amusement/ Theme Parks,Disney,Water Parks'.split(',')
 
@@ -54,11 +56,55 @@ SIGHTS_AND_LANDMARKS = 'Neighborhoods,Universities,Educational Sites,Government 
 Reservations, Historic Walking Areas,Mines,Civic Centers,Ghost Towns,Military Bases/ Facilities,\
 Battlefields,Missions,Farms,Landmarks/ Points of Interest,Architectural Buildings,\
 Monuments/ Statues,Bridges,Scenic Drives,Observation Decks/ Towers,Lookouts,\
-Lighthouses,Ships,Wharfs/ Piers/ Boardwalks,Fountains, Mysterious Sites,Arenas/ Stadiums/ Fields\
+Lighthouses,Ships,Wharfs/ Piers/ Boardwalks,Fountains, Mysterious Sites,Arenas/ Stadiums\
 ,Race Car Tracks'.split(',') + ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
 
 HISTORIC = ['Religious Sites','Historic Sites', 'Ancient Ruins', 'Castles', 'Cemeteries', 'Churches/ Cathedrals', 'Historic Walking Areas' ]
 
-CLUSTERS = ['SEA_OUTDOOR','LAND_OUTDOOR','CASINOS','CONCERTS_SHOWS','FOOD_DRINK','GROUND_NATURE','COLD_OUTDOOR'
+CLUSTERS = ['SEA_OUTDOOR','LAND_OUTDOOR','CASINOS','CONCERTS_SHOWS','FOOD_DRINK','SEA_NATURE','GROUND_NATURE','COLD_OUTDOOR'
 ,'MUSEUMS','NATURE_PARKS','OUTDOOR_ACTIVITIES', 'SHOPPING',
-'SPAS_AND_WELLNESS','TOURS','AMUSEMENT_PARKS','ZOOS']
+'SPAS_AND_WELLNESS','TOURS','AMUSEMENT_PARKS','ZOOS','BOAT_TOURS','SIGHTS_AND_LANDMARKS','HISTORIC']
+
+LIST_OF_CATS = [BOAT_TOURS,CASINOS, CONCERTS_SHOWS, FOOD_DRINK, MUSEUMS, NATURE_PARKS, SEA_NATURE, GROUND_NATURE, OUTDOOR_ACTIVITIES, COLD_OUTDOOR, SEA_OUTDOOR, LAND_OUTDOOR, SHOPPING, SPAS_AND_WELLNESS, TOURS, AMUSEMENT_PARKS, ZOOS, SIGHTS_AND_LANDMARKS, HISTORIC]
+STR_OF_CATS = ['BOAT_TOURS','CASINOS', 'CONCERTS_SHOWS', 'FOOD_DRINK', 'MUSEUMS', 'NATURE_PARKS', 'SEA_NATURE'\
+, 'GROUND_NATURE', 'OUTDOOR_ACTIVITIES', 'COLD_OUTDOOR', 'SEA_OUTDOOR', 'LAND_OUTDOOR', 'SHOPPING', 'SPAS_AND_WELLNESS',\
+ 'TOURS', 'AMUSEMENT_PARKS', 'ZOOS', 'SIGHTS_AND_LANDMARKS', 'HISTORIC']
+
+def processing_categories():
+	empty = []
+	for cat in LIST_OF_CATS:
+		for subgroup in cat:
+			subgroup0 = subgroup
+			subgroup = subgroup.replace("/", " & ")
+			subgroup = subgroup.replace(" &  ", " & ")
+			cat[cat.index(subgroup0)] =subgroup.strip()
+		empty.append(cat)
+
+	dic_cats = {}
+	for i in range(len(LIST_OF_CATS)):
+		dic_cats[STR_OF_CATS[i]] = empty[i]
+	return dic_cats
+
+def getting_category_counts(destination):
+	import hotels
+	locations = hotels.get_attractions(destination)
+	dict_cats = processing_categories()
+	pile_of_keys = []
+	for place in locations:
+		for keyword in place:
+			for key,item in dict_cats.items():
+				if keyword in item:
+					pile_of_keys.append(key)
+	
+	sum_keys = len(pile_of_keys)
+	dic_freq = {}
+	for key in pile_of_keys:
+		if key in dic_freq:
+			dic_freq[key] += 1
+		else:
+			dic_freq[key] = 1
+
+	for key, value in dic_freq.items():
+		dic_freq[key] = value/sum_keys
+
+	return dic_freq

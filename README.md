@@ -1,5 +1,14 @@
-Marco
+# Project Marco
+Project Marco is an application that allows for more intelligent vacation planning,
 
+## Getting Started
+
+###Prerequisites
+To use project Marco, you will need to run the following commands 
+
+```
+pip3 install sklearn
+```
 - Data
     - List countries English-speaking population.html -- language.py
     - language.json -- language.py
@@ -18,13 +27,15 @@ Marco
     - safety.py -- Get travel advisories
     - get_keywords.py -- Get keywords from a paragraph
     - language.py -- Get percentage of English speakers by country
-    - outline_pseudocode.py -- Project outline
-        - get_flight_costs (old)
-    - hotel_costs.py -- Slow hotel costs information scraper
     - kiwi.py -- Flight costs information by kiwi.com
     - skyscanner.py -- Flight costs information by skyscanner api
     - pile_driver.py -- 
     - weather_data.py -- Getting weather related data
-- Proposal
-    - Proposal.txt
-    - proposal.pdf
+- Archived
+    - Proposal
+        - Proposal.txt
+        - proposal.pdf
+    - Functions
+        - hotel_costs.py -- Slow hotel costs information scraper
+    - outline_pseudocode.py -- Project outline
+        - get_flight_costs from kiwi (old)

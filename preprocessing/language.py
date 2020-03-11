@@ -8,7 +8,38 @@ import json
 import re
 
 #Countries not appearing in list
-CORRECTIONS_DIC={'Norway':95}
+CORRECTIONS_DIC={'Norway':95,
+                 'Japan': 28,
+                 'The Netherlands':95,
+                 'United Arab Emirates':45,
+                 'Malaysia':60,
+                 'Iceland':95,
+                 'Cambodia':25,
+                 'Vietnam':61,
+                 'Ecuador':50,
+                 'Indonesia':62,
+                 'Mongolia':45,
+                 'Ukraine':20,
+                 'Laos':40,
+                 'Peru':50,
+                 'Dominican Republic':40,
+                 'Kyrgyzstan':15,
+                 'Bolivia':10,
+                 'Tunisia':75,
+                 'Azerbaijan':15,
+                 'Serbia':40,
+                 'Iran':20,
+                 'Bhutan':90,
+                 'Ethiopia':20,
+                 'Georgia':35,
+                 'Qatar':60,
+                 'Guatemala':30,
+                 'Mozambique':20,
+                 'Uruguay':26,
+                 'Armenia':5,
+                 'Oman':85,
+                 'El Salvador':60
+                 }
 
 filename = 'List countries English-speaking population.html'
 
@@ -34,7 +65,7 @@ def get_language(country):
     if country in PERCENT_DIC:
         return(PERCENT_DIC[country])
     elif country in CORRECTIONS_DIC:
-        return(c)
+        return(CORRECTIONS_DIC[country])
     else:
         print("failed "+country)
         return(-1)
