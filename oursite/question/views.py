@@ -81,7 +81,7 @@ def num_travelers_view(request):
     form = Alt2OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect('../genie/2/')
+        return redirect('../test/2/')
         #form = Alt2OriginInfoForm()
     context = {'form': form, 'object:': obj}
     return render(request, 'questions/num_travelers.html', context)
