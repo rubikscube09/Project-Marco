@@ -4,12 +4,11 @@ from geopy.geocoders import Nominatim
 geolocator = Nominatim(user_agent='Marco')
 
 def get_flights(fly_from, fly_to, 
-                date_from, date_to, 
+                date_from = '25/04/2020', date_to = '25/04/2020', 
                 roundtrip = False,
                 return_from=None, return_to=None, 
                 adults=1, children=0, infants=0,
                 budget=1500, currency='USD',
-                people=0, 
                 max_duration=50, 
                 radius=50, radius_format= 'km'):
     '''
