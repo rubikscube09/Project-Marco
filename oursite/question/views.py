@@ -41,6 +41,11 @@ def question_location(request):
     '''
 
     obj = get_object_or_404(OriginInfo, id=1)
+    location = current_location.get_location
+    if location == None:
+        location = 'No Internet!'
+    else:
+        obj.location = location
     form = OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()

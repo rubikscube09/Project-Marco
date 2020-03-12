@@ -17,7 +17,7 @@ def get_location():
         s.close()
         connection = True
     except:
-        input('Please enter location:' )
+        return None
     
     # alternative API, unlimited calls, but this level of convenience makes me
     # question the legitimacy of the website
