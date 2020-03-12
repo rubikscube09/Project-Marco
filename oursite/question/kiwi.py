@@ -86,6 +86,7 @@ def get_flights(fly_from, fly_to,
 
         return sorted(final_data, key=lambda data: data['price'])
     except:
+        print(date_from, date_to)
         return 'Flight data unavailable'
 
 

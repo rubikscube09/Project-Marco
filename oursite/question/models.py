@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 class Question(models.Model):
@@ -25,7 +26,8 @@ class OriginInfo(models.Model):
     id = models.IntegerField(primary_key=True)
     location = models.CharField(max_length=20)
     airport = models.CharField(max_length=10)
-    date = models.DateField()
+    start_date = models.DateField(default=date.today)
+    end_date = models.DateField(default=date.today)
     num_travelers = models.IntegerField(max_length=1)
     choices = [('Y', 'Yes'), ('N', 'No')]
     answer = models.CharField(max_length=1, choices=choices)

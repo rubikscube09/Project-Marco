@@ -35,3 +35,4 @@ def get_location():
         city = location_json['city']
         lat = location_json['latitude']
         lon = location_json['longitude']
+        return city

@@ -27,10 +27,11 @@ class AltOriginInfoForm(forms.ModelForm):
         fields = ['location']
 
 class Alt1OriginInfoForm(forms.ModelForm):
-    date = forms.DateField(widget=forms.SelectDateWidget(years=['2020','2021']))
+    start_date = forms.DateField(widget=forms.SelectDateWidget(years=['2020','2021']))
+    end_date = forms.DateField(widget=forms.SelectDateWidget(years=['2020','2021']))
     class Meta:
         model = OriginInfo
-        fields = ['date']
+        fields = ['start_date', 'end_date']
 
 class Alt2OriginInfoForm(forms.ModelForm):
     class Meta:

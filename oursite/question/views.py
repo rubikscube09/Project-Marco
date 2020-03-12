@@ -9,10 +9,8 @@ from . import hotels
 from . import kiwi
 from . import current_location
 from . import weather_data
+from datetime import datetime
 
-current_loc='chicago'
-num_adults=5
-#FIND WAY TO ENTER THIS IN USING DJANGO
 
 REDIRECT_DIC={
         'NATURE_PARKS': 2,
@@ -54,6 +52,7 @@ def question_location(request):
         form = QuestionForm()
     context = {'form': form, 'object': obj}    
     return render(request, 'questions/get_started.html', context)
+
 
 def update_origin_info(request):
     obj = get_object_or_404(OriginInfo, id=1)
@@ -136,21 +135,29 @@ def run_question(dictionary, id):
 
 
 def get_info(cities_set):
-    df=pd.read_csv('question/destinations_with_static_info.csv')
-    df=df[df['city'].isin(cities_set)]
-    df['hotels']=df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
-    df['flights']=df.apply(lambda row: kiwi.get_flights('chicago', row['city'], 
-                '01/01/21', '01/05/21', 
+    obj = get_object_or_404(OriginInfo, id=1)
+    origin = obj.location
+    num_adults = obj.num_travelers
+    start_date = obj.start_date
+    start_date = start_date.strftime(r"%d/%m/%Y")
+    print(start_date)
+    end_date = obj.end_date
+    end_date = end_date.strftime(r"%d/%m/%Y")
+    print(end_date)
+    df = pd.read_csv('question/destinations_with_static_info.csv')
+    df = df[df['city'].isin(cities_set)]
+    df['hotels'] = df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
+    df['flights'] = df.apply(lambda row: kiwi.get_flights(origin, row['city'], 
+                date_from=start_date, date_to=start_date, return_from=end_date, return_to=end_date, 
                 roundtrip = True,
-                return_from=row['city'], return_to=current_loc, 
                 adults=num_adults, children=0, infants=0,
                 budget=5000, currency='USD',
-                people=0, 
                 max_duration=50, 
                 radius=50, radius_format= 'km'), axis=1)
-    return(df)
+    return df
 
-
+def format_flight(flight_data):
+    pass
 
 def get_cities(request, id):
     global city_set
@@ -195,8 +202,8 @@ def get_cities(request, id):
                     image_i='imagelink'+str(i+1)
                     context[city_i]=cities[i].title()
                     context[text_i]=str(texts[i])[1:]
-                    context[hotel_costi]=str('We recommend '+hotels[i][0]+' or '+hotels[i][1]+' a night')
-                    context[flight_costi]=str(flights[i])
+                    context[hotel_costi]=str('The cheapest offering is '+hotels[i][0]+' for '+hotels[i][1]+' a night')
+                    context[flight_costi]=str(flights[i][0])
                     context[image_i]='background: url('+str(images[i])[:-3]+');background-size:cover;'
                     
                 print(context)
