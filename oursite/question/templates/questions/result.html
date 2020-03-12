@@ -8,10 +8,22 @@
     background-color: white;
 
   }
+  
+
+.boxed{
+	border: 5px solid #6e6d6d;
+	background: 10px #6e6d6d;
+	padding: 20px 20px;
+	opacity: .75;
+}
 
   h1{font: 24px Helvetica, Sans-Serif;
     text-align: center;
-    color:black;}
+    color:white;
+    margin-left: auto;
+    margin-right:auto;
+    height:80%;
+    width:80%;}
 
   p{font: 44px bold Helvetica, Sans-Serif;
     text-align: center;
@@ -49,7 +61,7 @@
   .city_box:hover{
     transition: width .3s, height .3s;
     width:70%;
-    height:1000px;
+    height:700px;
     opacity:.9;
   }
 
@@ -66,22 +78,22 @@
   </div>
   <div class="right">
   </div>
-  <div style="width: 70%; text-align: center; margin-left: auto; margin-right: auto;"> <p class="title">Oh, the places you'll go...</p></div>
+  <div style="width: 60%; text-align: center; margin-left: auto; margin-right: auto;"> <p class="title">Oh, the places you'll go...</p></div>
 
   <div class="city_box" style="{% autoescape off %}{{ imagelink1 }}{% endautoescape %}">
   <p>{{city1}}
   </p>
-  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text1 }}</h1><h1>{{ hotel_cost1 }}</h1><h1>{{ flight_cost1 }}</h1></div>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1 class="boxed">{{ text1 }}</h1><h1>{{ hotel_cost1 }}</h1><h1>{{ flight_cost1 }}</h1></div>
 </div>
     <div class="city_box" style="{% autoescape off %}{{ imagelink2 }}{% endautoescape %}">
   <p>{{city2}}
   </p>
-  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text2 }}</h1><h1>{{ hotel_cost2 }}</h1><h1>{{ flight_cost2 }}</h1></div>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1 class="boxed">{{ text2 }}</h1><h1>{{ hotel_cost2 }}</h1><h1>{{ flight_cost2 }}</h1></div>
 </div>
 <div class="city_box" style="{% autoescape off %}{{ imagelink3 }}{% endautoescape %}">
-  <p>{{city1}}
+  <p>{{city3}}
   </p>
-  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text3 }}</h1><h1>{{ hotel_cost3 }}</h1><h1>{{ flight_cost3 }}</h1></div>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1 class="boxed">{{ text3 }}</h1><h1>{{ hotel_cost3 }}</h1><h1>{{ flight_cost3 }}</h1></div>
 </div>
 </div>
 </html>
