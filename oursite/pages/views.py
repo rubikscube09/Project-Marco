@@ -8,7 +8,7 @@ def home_view(request):
     with open('result.json', 'w') as fp:
         json.dump(dictionary, fp)
     my_context = {'title': 'Project Marco',
-                  'msg': "life is short, world is big"}
+                  'msg': "Life is short, but the world is big"}
     return render(request, 'home.html', my_context)
 
 def team_view(request):
