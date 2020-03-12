@@ -138,7 +138,6 @@ def run_question(dictionary, id):
 def get_info(cities_set):
     df=pd.read_csv('question/destinations_with_static_info.csv')
     df=df[df['city'].isin(cities_set)]
-    '''
     df['hotels']=df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
     df['flights']=df.apply(lambda row: kiwi.get_flights('chicago', row['city'], 
                 '01/01/21', '01/05/21', 
@@ -149,7 +148,6 @@ def get_info(cities_set):
                 people=0, 
                 max_duration=50, 
                 radius=50, radius_format= 'km'), axis=1)
-    '''
     return(df)
 
 
@@ -186,19 +184,19 @@ def get_cities(request, id):
                 cities=list(df['city'])
                 images=list(df['image'])
                 texts=list(df['text'])
-                #flights=list(df['flights'])
-                #hotels=list(df['hotels'])
+                flights=list(df['flights'])
+                hotels=list(df['hotels'])
                 
                 for i in range(len(cities)):
                     city_i='city'+str(i+1)
                     text_i='text'+str(i+1)
-                    #hotel_costi='hotel_cost'+str(i+1)
-                    #flight_costi='flight_cost'+str(i+1)
+                    hotel_costi='hotel_cost'+str(i+1)
+                    flight_costi='flight_cost'+str(i+1)
                     image_i='imagelink'+str(i+1)
                     context[city_i]=cities[i].title()
                     context[text_i]=str(texts[i])[1:]
-                    #context[hotel_costi]=str('We recommend '+hotels[i][0]+'for '+hotels[i][1]+' a night')
-                    #context[flight_costi]=str(flights[i])
+                    context[hotel_costi]=str('We recommend '+hotels[i][0]+' or '+hotels[i][1]+' a night')
+                    context[flight_costi]=str(flights[i])
                     context[image_i]='background: url('+str(images[i])[:-3]+');background-size:cover;'
                     
                 print(context)

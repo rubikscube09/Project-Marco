@@ -18,7 +18,7 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 	text-overflow: ellipses;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
   h1{font: 24px Helvetica, Sans-Serif;
@@ -29,9 +29,10 @@ body{
     height:80%;
     width:80%;}
 
-  p{font: 44px bold Helvetica, Sans-Serif;
+  p{font: 50px bold Helvetica, Sans-Serif;
     text-align: center;
-    color: black;}
+    color: black;
+    padding: 50px 15px;}
 
   .title{
     font: 60px bold Helvetica;
@@ -65,7 +66,7 @@ body{
   .city_box:hover{
     transition: width .3s, height .3s;
     width:70%;
-    height:700px;
+    height:900px;
     opacity:.9;
   }
 
@@ -85,7 +86,7 @@ body{
 	height: 70px;
 	margin-left: auto;
 	margin-right: auto;
-	overflow: scroll;
+	overflow-y: scroll;
 	padding: 20px 20px;
 }
 
@@ -101,17 +102,18 @@ body{
   <div class="city_box" style="{% autoescape off %}{{ imagelink1 }}{% endautoescape %}">
   <p>{{city1}}
   </p>
-  <div id="HiddenText"><h1 class="boxed">{{ text1 }}</h1><h1 class="boxed_info">Hotels</h1><h1 class="boxed_info">flights</h1></div>
-</div>
-    <div class="city_box" style="{% autoescape off %}{{ imagelink2 }}{% endautoescape %}">
+  <div id="HiddenText"><h1 class="boxed">{{ text1 }}</h1><h1 class="boxed_info">{{ hotel_cost1 }}</h1><h1 class="boxed_info">{{ flight_cost1 }}</h1>
+  </div>
+  </div>
+  <div class="city_box" style="{% autoescape off %}{{ imagelink2 }}{% endautoescape %}">
   <p>{{city2}}
   </p>
-  <div id="HiddenText"><h1 class="boxed">{{ text2 }}</h1><h1>{{ hotel_cost2 }}</h1><h1>{{ flight_cost2 }}</h1></div>
+  <div id="HiddenText"><h1 class="boxed">{{ text2 }}</h1><h1 class="boxed_info">{{ hotel_cost2 }}</h1><h1 class="boxed_info">{{ flight_cost2 }}</h1></div>
 </div>
 <div class="city_box" style="{% autoescape off %}{{ imagelink3 }}{% endautoescape %}">
   <p>{{city3}}
   </p>
-  <div id="HiddenText" style="text-overflow: ellipsis"><h1 class="boxed">{{ text3 }}</h1><h1>{{ hotel_cost3 }}</h1><h1>{{ flight_cost3 }}</h1></div>
+  <div id="HiddenText"><h1 class="boxed">{{ text3 }}</h1><h1 class="boxed_info">{{ hotel_cost2 }}</h1><h1 class="boxed_info">{{ flight_cost2 }}</h1></div>
 </div>
 </div>
 </html>

@@ -5,7 +5,7 @@
 <style>
 	
 	body{
-		background-color: white;
+		background-color: #f9f9f9;
 
 	}
 
@@ -26,13 +26,24 @@
 	.form{
     display: block;
     text-align: center;
+    object-fit: center;
+    color: black;
 	}
 
 	p{font: 44px Helvetica;
     text-align: center;
     color: black;
-    mix-blend-mode: difference;
 	margin-bottom: -15px;}
+
+	.fieldWrapper{
+		font: 30px Helvetica;
+		color: black;
+		text-align: center;
+		object-fit: center;
+		width: 40%;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
 
 ul {
@@ -56,10 +67,17 @@ li {
 
 
 
-<p>{{ object.question }}</p>
+<p style="font: bold 50px Helvetica; margin-bottom: 30px;">{{ object.question }}</p>
 <form method='POST'> {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} <br/>
+        {{ field }}
+    </div>
+    {% endfor %}
+    <div class=form>
     <input type='submit' value='Submit'/>
+</div>
 </form>
-
 {% endblock %}
