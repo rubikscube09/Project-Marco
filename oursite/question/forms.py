@@ -2,12 +2,12 @@ from django import forms
 from .models import Question, OriginInfo
 
 class QuestionForm(forms.ModelForm):
-    CHOICES = [(0, 'Not Interested'), 
-               (1, 'A little Interested'), 
-               (2, 'Somewhat Interested'), 
-               (3, 'Very Interested'), 
-               (4, 'Really Interested'), 
-               (5, 'Really Very Interested')]
+    CHOICES = [(0, 'Not at all'), 
+               (1, 'A little bit'), 
+               (2, 'Somewhat'), 
+               (3, 'Reasonably'), 
+               (4, 'Very much'), 
+               (5, 'Extremely')]
     answer = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
     class Meta:
         model = Question

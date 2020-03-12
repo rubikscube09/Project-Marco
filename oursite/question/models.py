@@ -6,12 +6,12 @@ class Question(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=10)
     question = models.TextField()
-    choices = [(0, 'Not Interested'), 
-               (1, 'A little Interested'), 
-               (2, 'Somewhat Interested'), 
-               (3, 'Very Interested'), 
-               (4, 'Really Interested'), 
-               (5, 'Really Very Interested')]
+    choices = [(0, 'Not at all'), 
+               (1, 'A little bit'), 
+               (2, 'Somewhat'), 
+               (3, 'Reasonably'), 
+               (4, 'Very much'), 
+               (5, 'Extremely')]
     answer = models.IntegerField(max_length=1, choices=choices)
 
     def get_absolute_url(self):
