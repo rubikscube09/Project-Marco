@@ -30,17 +30,17 @@
     color: black;
 	}
 
-	p{font: 44px Helvetica;
+	p{font: bold 50px Helvetica;
     text-align: center;
     color: black;
-	margin-bottom: -15px;}
+	margin-bottom: 30px;}
 
 	.fieldWrapper{
 		font: 30px Helvetica;
 		color: black;
 		text-align: center;
 		object-fit: center;
-		width: 40%;
+		width: 45%;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -72,7 +72,6 @@ li {
     {% for field in form %}
     <div class="fieldWrapper">
         {{ field.errors }}
-        {{ field.label_tag }} <br/>
         {{ field }}
     </div>
     {% endfor %}
