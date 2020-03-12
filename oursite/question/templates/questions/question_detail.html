@@ -1,8 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-
 <style>
+	
+	body{
+		background-color: white;
+
+	}
+
+	.left{width: 15%;
+		background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+		height: 1400px;
+		float: left;
+		background-position:left;
+		background-size:cover;
+	}
+	.right{width: 15%;
+		background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+		height: 1400px;
+		float: right;
+		background-position: right;
+		background-size:cover;
+	}
+	.form{
+    display: block;
+    text-align: center;
+	}
+
+	p{font: 44px Helvetica;
+    text-align: center;
+    color: black;
+    mix-blend-mode: difference;
+	margin-bottom: -15px;}
+
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -15,7 +47,16 @@ li {
 }
 </style>
 
-<h1>{{ object.question }}</h1>
+<div>
+	<div class="left">
+	</div>
+	<div class="right">
+	</div>
+</div>
+
+
+
+<p>{{ object.question }}</p>
 <form method='POST'> {% csrf_token %}
     {{ form.as_p }}
     <input type='submit' value='Submit'/>

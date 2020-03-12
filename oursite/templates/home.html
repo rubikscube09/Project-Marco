@@ -10,6 +10,20 @@ body {
   background-size: cover;
 }
 
+.boxed{
+	border: 5px solid #6e6d6d;
+	background: 10px #6e6d6d;
+	padding: 20px 20px;
+	opacity: .6;
+}
+
+.boxed:hover{
+	border: 5px solid white;
+	padding: 20px 20px;
+	background: 10px #6e6d6d;
+	opacity: .95;
+}
+
 .fullscreen-bg {
     position: fixed;
     top: 0;
@@ -30,22 +44,34 @@ body {
     object-position: center;
 }
 
-h1{font: bold 44px Helvetica;
+h1{font: bold 44px Helvetica, Sans-Serif;
     text-align: center;
     color: white;
-    mix-blend-mode: difference;}
+    mix-blend-mode: difference;
+	margin-bottom: -15px;}
+h2{font: bold 20px Helvetica, Sans-Serif;
+text-align: center;
+color: white;
+mix-blend-mode: difference;
+margin-bottom:17%;}
 
-p{text-align: center;}
+p{font: bold 30px Helvetica, Sans-Serif;
+color: white;
+text-align: center;
+margin-bottom:25%;}
+
+a{color: white; text-decoration: none;}
+
 
 </style>
 
 <div id="title">
     <h1>{{ title }}</h1>
+    <h2>{{ msg }}</h2>
 </div>
 
-<p>{{ msg }}</p>
 
-<p><a href="/questions/getting-started/">Getting Started (fr this time)</a></p>
+<p><a class=boxed href="/questions/getting-started/">Find your trip</a></p>
 <p> To log into django's backend, use username: marco and password: polo!!!!</p>
 
 <div class="fullscreen-bg">

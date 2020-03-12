@@ -1,47 +1,89 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1561.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 28.0px; font: 24.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000; min-height: 14.0px}
-    span.s1 {font-kerning: none}
-    span.s2 {font-kerning: none; -webkit-text-stroke: 0px #000000}
-    span.s3 {font: 24.0px Times; font-kerning: none}
-  </style>
-</head>
-<body>
-<p class="p1"><span class="s1">{% extends 'base.html' %} {% block content %}</span></p>
-<p class="p1"><span class="s1"><br>
-</span></p>
-<h1 style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 28.0px; font: 24.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>{{ city1 }}</b></span></h1>
-<h1 style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>{{ text1 }}</b></span></h1>
-<p class="p4"><span class="s1">{{ flight_cost1 }}</span><span class="s2">{{ hotel_cost1 }}</span><span class="s3"><br>
-</span></p>
-<p class="p2"><span class="s1"><b>{{ city2 }}</b></span></p>
-<p class="p3"><span class="s1"><b>{{ text2 }}</b></span></p>
-<p class="p4"><span class="s1">{{ flight_cost2 }}</span><span class="s2">{{ hotel_cost2 }}</span><span class="s3"><br>
-</span></p>
-<p class="p2"><span class="s1"><b>{{ city3 }}</b></span></p>
-<p class="p3"><span class="s1"><b>{{ text3 }}</b></span></p>
-<p class="p4"><span class="s1">{{ flight_cost3 }}</span><span class="s2">{{ hotel_cost3 }}</span><span class="s3"><br>
-</span></p>
-<p class="p2"><span class="s1"><b>{{ city4 }}</b></span></p>
-<p class="p3"><span class="s1"><b>{{ text4 }}</b></span></p>
-<p class="p4"><span class="s1">{{ flight_cost4 }}</span><span class="s2">{{ hotel_cost1 }}</span><span class="s3"><br>
-</span></p>
-<p class="p2"><span class="s1"><b>{{ city5 }}</b></span></p>
-<p class="p3"><span class="s1"><b>{{ text5 }}</b></span></p>
-<p class="p4"><span class="s1">{{ flight_cost5 }}</span><span class="s2">{{ hotel_cost1 }}</span><span class="s3"><br>
-</span></p>
-<p class="p5"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">{% endblock %}</span></p>
-</body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  
+  body{
+    background-color: white;
+
+  }
+
+  h1{font: 24px Helvetica, Sans-Serif;
+    text-align: center;
+    color:black;}
+
+  p{font: 44px bold Helvetica, Sans-Serif;
+    text-align: center;
+    color: black;}
+
+  .title{
+    font: 60px bold Helvetica;
+    text-align-last: ;
+    color=black;
+    margin-bottom: 50px
+  }
+  .left{width: 15%;
+    background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+    height: 1400px;
+    float: left;
+    background-position:left;
+    background-size:cover;
+  }
+  .right{width: 15%;
+    background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+    height: 1400px;
+    float: right;
+    background-position: right;
+    background-size:cover;
+  }
+  .city_box{
+    margin-left:auto;
+    margin-right:auto;
+    transition: 
+    width .3s, height .3s;
+    width:60%;
+    height:500x;
+    opacity: .75;
+  }
+  .city_box:hover{
+    transition: width .3s, height .3s;
+    width:70%;
+    height:1000px;
+    opacity:.9;
+  }
+
+  #HiddenText {
+    display: none;
+  }
+  .city_box:hover #HiddenText {
+    display:block;
+}
+</style>
+
+<div>
+  <div class="left">
+  </div>
+  <div class="right">
+  </div>
+  <div style="width: 70%; text-align: center; margin-left: auto; margin-right: auto;"> <p class="title">Oh, the places you'll go...</p></div>
+
+  <div class="city_box" style="{% autoescape off %}{{ imagelink1 }}{% endautoescape %}">
+  <p>{{city1}}
+  </p>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text1 }}</h1><h1>{{ hotel_cost1 }}</h1><h1>{{ flight_cost1 }}</h1></div>
+</div>
+    <div class="city_box" style="{% autoescape off %}{{ imagelink2 }}{% endautoescape %}">
+  <p>{{city2}}
+  </p>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text2 }}</h1><h1>{{ hotel_cost2 }}</h1><h1>{{ flight_cost2 }}</h1></div>
+</div>
+<div class="city_box" style="{% autoescape off %}{{ imagelink3 }}{% endautoescape %}">
+  <p>{{city1}}
+  </p>
+  <div id="HiddenText" style="text-overflow: ellipsis"><h1>{{ text3 }}</h1><h1>{{ hotel_cost3 }}</h1><h1>{{ flight_cost3 }}</h1></div>
+</div>
+</div>
 </html>
+
+{% endblock %}
