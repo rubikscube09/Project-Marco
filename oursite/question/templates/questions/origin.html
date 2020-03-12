@@ -1,9 +1,77 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+	
+	body{
+		background-color: #f9f9f9;
+
+	}
+
+	.left{width: 15%;
+		background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+		height: 1400px;
+		float: left;
+		background-position:left;
+		background-size:cover;
+	}
+	.right{width: 15%;
+		background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
+		height: 1400px;
+		float: right;
+		background-position: right;
+		background-size:cover;
+	}
+	.form{
+    display: block;
+    text-align: center;
+    object-fit: center;
+    color: black;
+	}
+
+	p{font: bold 50px Helvetica;
+    text-align: center;
+    color: black;
+	margin-bottom: 30px;}
+
+	.fieldWrapper{
+		font: 30px Helvetica;
+		color: black;
+		text-align: center;
+		object-fit: center;
+		width: 10%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+li {
+  float: left;
+  padding: 14px 16px;
+}
+</style>
+<div>
+	<div class="left">
+	</div>
+	<div class="right">
+	</div>
+</div>
 <p>Please enter your location:</p>
 <form method='POST'> {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field }}
+    </div>
+    {% endfor %}
+    <div class=form>
     <input type='submit' value='Submit'/>
+</div>
 </form>
 {% endblock %}
