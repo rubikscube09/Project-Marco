@@ -3,7 +3,8 @@
 
 {% block content %}
 <style>
-  
+.highlightme { background-color:#FFFF00; }
+
 body{
     background-color: white;
   }
@@ -33,6 +34,7 @@ body{
     text-align: center;
     color: black;
     padding: 50px 15px;}
+
 
   .title{
     font: 60px bold Helvetica;
@@ -117,7 +119,7 @@ body{
 <div class="city_box" style="{% autoescape off %}{{ imagelink3 }}{% endautoescape %}">
   <p>{{city3}}
   </p>
-  <div id="HiddenText"><h1 class="boxed">{{ text3 }}</h1><h1 class="boxed_info">{{ hotel_cost2 }}</h1><h1 class="boxed_info">{{ flight_cost2 }}</h1></div>
+  <div id="HiddenText"><h1 class="boxed">{{ text3 }}</h1><h1 class="boxed_info">{{ hotel_cost3 }}</h1><h1 class="boxed_info">{{ flight_cost3 }}</h1></div>
 </div>
 </div>
 </html>

@@ -30,25 +30,28 @@ def get_hotels(location_id,
         limit (int): Number of hotels 
 
     '''
-    url = "https://tripadvisor1.p.rapidapi.com/hotels/list"
+    try:
+        url = "https://tripadvisor1.p.rapidapi.com/hotels/list"
 
 
-    querystring = { 'location_id' : str(location_id),
-                    'adults': str(num_adults),
-                    'pricesmax':str(budget),
-                    'check_in':check_in,
-                    'nights':str(nights),
-                    'rooms':str(rooms),
-                    'limit':str(limit),
-    }
+        querystring = { 'location_id' : str(location_id),
+                        'adults': str(num_adults),
+                        'pricesmax':str(budget),
+                        'check_in':check_in,
+                        'nights':str(nights),
+                        'rooms':str(rooms),
+                        'limit':str(limit),
+        }
 
-    headers = {
-        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
-    }
+        headers = {
+            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+            'x-rapidapi-key': "21a93f3e0emsh34914a994184bdep12923cjsnc90566e5ca81"
+        }
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    resp_data = response.json()['data']
-    #Sort output by average price (low price + high price/2)
-    resp_data_price_sort = sorted(resp_data, key = lambda x: (int(re.sub(',','',x['price'].split()[0].strip(',$,'))) + int(re.sub(',','',x['price'].split()[2].strip(',$,')))/2))
-    return [(data['name'],data['price'],(data['latitude'],data['longitude'])) for data in resp_data_price_sort]
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        resp_data = response.json()['data']
+        #Sort output by average price (low price + high price/2)
+        resp_data_price_sort = sorted(resp_data, key = lambda x: (int(re.sub(',','',x['price'].split()[0].strip(',$,'))) + int(re.sub(',','',x['price'].split()[2].strip(',$,')))/2))
+        return [(data['name'],data['price'],(data['latitude'],data['longitude'])) for data in resp_data_price_sort]
+    except:
+        return "Hotel data unavailable"
