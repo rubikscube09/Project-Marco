@@ -51,7 +51,7 @@ def get_flights(fly_from, fly_to,
 
     url = 'https://api.skypicker.com/flights?fly_from={}&fly_to={}&date_from={}&date_to={}&curr={}&sort={}&partner=picky&v=3'.format(\
           fly_from, fly_to, date_from, date_to, 'USD', 'price')
-
+    print(url)
     #Case for roundtrip flights
     if roundtrip:
         assert return_from != None and return_to != None, 'Please specify locations'
@@ -65,15 +65,15 @@ def get_flights(fly_from, fly_to,
 
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
-    try:
-        flight_data = flight_resp_dict['data']
-        # Condition that flight is not too long and not too expensive
-        filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= max_duration]
-        
-        final_data = [None]*len(filt_flight_data)
-        #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
-        for i in range(0,len(final_data)):
-            final_data[i] = {'price':filt_flight_data[i]['price'], 
+    if not flight_resp_dict:
+        return 
+    flight_data = flight_resp_dict['data']
+    # Condition that flight is not too long and not too expensive
+    filt_flight_data = [x for x in flight_data if float(x['price'])<= budget and float(x['fly_duration'].split('h')[0]) <= float(max_duration)]    
+    final_data = [None]*len(filt_flight_data)
+    #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
+    for i in range(0,len(final_data)):
+        final_data[i] = {'price':filt_flight_data[i]['price'], 
                             'Itinerary':[((leg['cityFrom'],leg['cityTo']),
                                         (leg['flyFrom'],leg['flyTo']),
                                          leg['airline']+str(leg['flight_no']))
@@ -83,11 +83,7 @@ def get_flights(fly_from, fly_to,
                             'start_dest':(filt_flight_data[i]['cityFrom'],filt_flight_data[i]['flyFrom'],filt_flight_data[i]['countryFrom']['name']),
                             'end_dest':(filt_flight_data[i]['cityTo'],filt_flight_data[i]['flyTo'],filt_flight_data[i]['countryTo']['name'])
                             }
-
-        return sorted(final_data, key=lambda data: data['price'])
-    except:
-        print(date_from, date_to)
-        return 'Flight data unavailable'
+    return sorted(final_data, key=lambda data: data['price'])
 
 
 

@@ -170,7 +170,16 @@ def get_info(cities_set):
     return df
 
 def format_flight(flight_data):
-    pass
+    return_str = ''
+    itin = flight_data['Itinerary']
+    for i in range(len(itin)):
+        leg = itin[i]
+        return_str += "Leg " + str(i+1) + ": "  
+        return_str += leg[0][0] + '(' + leg[1][0] + ')'+ ' -> ' + leg[0][1] + '(' + leg[1][1] + ')' + ' Flight No:' + leg[2] + ' | ' 
+    return_str += 'Price: ' + str(flight_data['price']) + '\n' + 'Flight Duration: ' + str(flight_data['total_duration']) + ' hours' + ' | ' +' | '
+    return_str += 'Booking Link: ' + flight_data['link']
+
+    return return_str    
 
 def get_cities(request, id):
     global city_set
@@ -183,60 +192,54 @@ def get_cities(request, id):
         Go from one question to another
         How to store the dictionary
         '''
-        try:
-            global city_set
-            global count
+        global city_set
+        global count
 
-            with open('result.json', 'r') as f:
-                dictionary = json.load(f)
-            obj = get_object_or_404(Question, id=id)
-            form = QuestionForm(request.POST or None, instance=obj)
-            if form.is_valid():
-                print(city_set)
-                print(count)
-                form.save()
-                new_qn = run_question(dictionary, id)
-                if new_qn in REDIRECT_DIC:
-                    new_id = REDIRECT_DIC[new_qn]
-                    return redirect('../../test/{}/'.format(new_id))
-                elif len(city_set)>=3 or count>=10:
-                    context={}
-                    df=get_info(city_set)
-                    cities=list(df['city'])
-                    images=list(df['image'])
-                    texts=list(df['text'])
-                    flights=list(df['flights'])
-                    hotels=list(df['hotels'])
+        with open('result.json', 'r') as f:
+            dictionary = json.load(f)
+        obj = get_object_or_404(Question, id=id)
+        form = QuestionForm(request.POST or None, instance=obj)
+        if form.is_valid():
+            print(city_set)
+            print(count)
+            form.save()
+            new_qn = run_question(dictionary, id)
+            if new_qn in REDIRECT_DIC:
+                new_id = REDIRECT_DIC[new_qn]
+                return redirect('../../test/{}/'.format(new_id))
+            elif len(city_set)>=3 or count>=10:
+                context={}
+                df=get_info(city_set)
+                cities=list(df['city'])
+                images=list(df['image'])
+                texts=list(df['text'])
+                flights=list(df['flights'])
+                hotels=list(df['hotels'])
+                
+                for i in range(len(cities)):
+                    city_i='city'+str(i+1)
+                    text_i='text'+str(i+1)
+                    hotel_costi='hotel_cost'+str(i+1)
+                    flight_costi='flight_cost'+str(i+1)
+                    image_i='imagelink'+str(i+1)
+                    context[city_i]=cities[i].title()
+                    context[text_i]=str(texts[i])[1:]
+                    try:
+                        context[hotel_costi]=str('The cheapest offering is '+hotels[i][0]+' for '+hotels[i][1]+' a night')
+                    except:
+                        context[hotel_costi]=="Hotel data unavailable"
+                    if flights[i]:
+                        context[flight_costi]=format_flight(flights[i][0])
+                    else:
+                        context[flight_costi]="Flight data unavailable"
+                    context[image_i]='background: url('+str(images[i])[:-3]+');background-size:cover;'
                     
-                    for i in range(len(cities)):
-                        city_i='city'+str(i+1)
-                        text_i='text'+str(i+1)
-                        hotel_costi='hotel_cost'+str(i+1)
-                        flight_costi='flight_cost'+str(i+1)
-                        image_i='imagelink'+str(i+1)
-                        context[city_i]=cities[i].title()
-                        context[text_i]=str(texts[i])[1:]
-                        try:
-                            context[hotel_costi]=str('The cheapest offering is '+hotels[i][0]+' for '+hotels[i][1]+' a night')
-                        except:
-                            context[hotel_costi]=="Hotel data unavailable"
-                        try:
-                            if flights[i]!="Flight data unavailable":
-                                context[flight_costi]=str(flights[i][0])
-                            else:
-                                context[flight_costi]="Flight data unavailable"
-                        except:
-                            context[flight_costi]="Flight data unavailable"
-                        context[image_i]='background: url('+str(images[i])[:-3]+');background-size:cover;'
-                        
-                    print(context)
-                    return render(request, 'questions/result.html', context)
-                else:
-                    city_set.add(new_qn)
-                    count=count+1
-                    return next_question(request, id)
-            context = {'object': obj, 'form': form}
-            return render(request, 'questions/question_detail.html', context)
-        except:
-            return render(request, 'home.html')
+                print(context)
+                return render(request, 'questions/result.html', context)
+            else:
+                city_set.add(new_qn)
+                count=count+1
+                return next_question(request, id)
+        context = {'object': obj, 'form': form}
+        return render(request, 'questions/question_detail.html', context)
     return next_question(request, id)
