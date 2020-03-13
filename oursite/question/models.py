@@ -24,8 +24,9 @@ class Question(models.Model):
 
 class OriginInfo(models.Model):
     id = models.IntegerField(primary_key=True)
-    location = models.CharField(max_length=20)
+    location = models.CharField(max_length=20, default='Chicago')
     airport = models.CharField(max_length=10)
+    duration = models.IntegerField(default=14)
     start_date = models.DateField(default=date.today)
     end_date = models.DateField(default=date.today)
     num_travelers = models.IntegerField(max_length=1)

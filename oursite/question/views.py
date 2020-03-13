@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, OriginInfo
-from .forms import QuestionForm, OriginInfoForm, AltOriginInfoForm, Alt1OriginInfoForm, Alt2OriginInfoForm
+from .forms import QuestionForm, OriginInfoForm, AltOriginInfoForm, Alt1OriginInfoForm, Alt2OriginInfoForm, Alt3OriginInfoForm
 from . import vacation_id3_attempt_2
 import json
 import numpy as np
@@ -41,11 +41,10 @@ def question_location(request):
     '''
 
     obj = get_object_or_404(OriginInfo, id=1)
-    location = current_location.get_location
-    if location == None:
-        location = 'No Internet!'
-    else:
-        obj.location = location
+    location = current_location.get_location()
+    obj.location = location
+    if obj.location == '':
+        return redirect('../origin/')
     form = OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
@@ -85,10 +84,20 @@ def num_travelers_view(request):
     form = Alt2OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect('../test/2/')
+        return redirect('../duration/')
         #form = Alt2OriginInfoForm()
     context = {'form': form, 'object:': obj}
     return render(request, 'questions/num_travelers.html', context)
+
+
+def duration_view(request):
+    obj = get_object_or_404(OriginInfo, id=1)
+    form = Alt3OriginInfoForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('../test/2/')
+    context = {'form': form, 'object:': obj}
+    return render(request, 'questions/duration.html', context)
 
 
 def question_list_view(request):
@@ -145,10 +154,9 @@ def get_info(cities_set):
     num_adults = obj.num_travelers
     start_date = obj.start_date
     start_date = start_date.strftime(r"%d/%m/%Y")
-    print(start_date)
     end_date = obj.end_date
     end_date = end_date.strftime(r"%d/%m/%Y")
-    print(end_date)
+    duration = str(obj.duration)
     df = pd.read_csv('question/destinations_with_static_info.csv')
     df = df[df['city'].isin(cities_set)]
     df['hotels'] = df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
@@ -157,7 +165,7 @@ def get_info(cities_set):
                 roundtrip = True,
                 adults=num_adults, children=0, infants=0,
                 budget=5000, currency='USD',
-                max_duration=50, 
+                max_duration=duration, 
                 radius=50, radius_format= 'km'), axis=1)
     return df
 

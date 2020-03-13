@@ -22,7 +22,7 @@ class OriginInfoForm(forms.ModelForm):
         fields = ['answer']
 
 class AltOriginInfoForm(forms.ModelForm):
-     class Meta:
+    class Meta:
         model = OriginInfo
         fields = ['location']
 
@@ -37,3 +37,9 @@ class Alt2OriginInfoForm(forms.ModelForm):
     class Meta:
         model = OriginInfo
         fields = ['num_travelers']
+    
+
+class Alt3OriginInfoForm(forms.ModelForm):
+    class Meta:
+        model = OriginInfo
+        fields = ['duration']

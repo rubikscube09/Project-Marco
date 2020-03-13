@@ -6,7 +6,8 @@ from .views import (
     update_origin_info,
     get_cities,
     start_date_view,
-    num_travelers_view
+    num_travelers_view,
+    duration_view
     )
 
 app_name = 'questions'
@@ -17,5 +18,6 @@ urlpatterns = [
     path('origin/', update_origin_info),
     path('date/', start_date_view),
     path('test/<int:id>/', get_cities),
-    path('num_travelers/', num_travelers_view)
+    path('num_travelers/', num_travelers_view),
+    path('duration/', duration_view)
 ]
