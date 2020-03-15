@@ -1,11 +1,14 @@
-import requests
-# using an api from whatismyapiaddress.com
-# api calls limited to once per 5 minute
-# ip_response = requests.get('http://bot.whatismyipaddress.com')
-# ip_address = ip_response.text
+import request
+
 import socket
 
 def get_location():
+    '''
+    using an api from whatismyapiaddress.com to get the current location of the user
+    api calls limited to once per 5 minute
+    Input: None
+    Output: None
+    '''
     # the follwing part tests your internet connection
     connection = False
     try:

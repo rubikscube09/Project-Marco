@@ -7,6 +7,11 @@ def calc_score(attractions_dict,clusters = trip_advisor_consts.CLUSTERS):
     '''
     Given a list of clusters, calculate the frequency of the keywords in each
     city and output to a pandas dataframe. Also add temperatures
+
+    Input: list of cluster objects
+
+   	Output:
+	pandas dataframe
     '''
     out = pd.DataFrame()
     rpt = False
