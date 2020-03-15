@@ -44,14 +44,31 @@ body {
     object-position: center;
 }
 
+.typewriter h2 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  /*letter-spacing: .15em; /* Adjust as needed */
+  margin-top: 32px;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+  font: italic 40px Helvetica, Sans-Serif;
+  text-align: center;
+  color: white;
+  margin-bottom: 17%;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+
 h1{font: bold 70px Helvetica, Sans-Serif;
     text-align: center;
     color: white;
 	margin-bottom: -15px;}
-h2{font: bold 40px Helvetica, Sans-Serif;
-text-align: center;
-color: white;
-margin-bottom:17%;}
 
 p{font: bold 30px Helvetica, Sans-Serif;
 color: white;
@@ -65,7 +82,9 @@ a{color: white; text-decoration: none;}
 
 <div id="title">
     <h1>{{ title }}</h1>
-    <h2>{{ msg }}</h2>
+    <div class='typewriter'>
+        <h2>{{ msg }}</h2>
+    </div>
 </div>
 
 
