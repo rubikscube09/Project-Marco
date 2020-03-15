@@ -65,7 +65,8 @@ def weather(city, date_in_str):
         API_Key1 = '01a7197ed8294958ab4c7c6662cbb01c'
         # 500 calls per day
 
-        request_url1 = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + API_Key1
+        request_url1 = 'https://api.weatherbit.io/v2.0/forecast/daily?key=' + \
+                                                                    API_Key1
         request_url1 += '&lat=' + lat + '&lon=' + lon
 
         weather_response1 = requests.get(request_url1)

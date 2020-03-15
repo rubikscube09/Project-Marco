@@ -1,6 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, OriginInfo
-from .forms import QuestionForm, OriginInfoForm, AltOriginInfoForm, Alt1OriginInfoForm, Alt2OriginInfoForm, Alt3OriginInfoForm
+from .forms import ( QuestionForm, 
+                     OriginInfoForm, 
+                     AltOriginInfoForm, 
+                     Alt1OriginInfoForm, 
+                     Alt2OriginInfoForm, 
+                     Alt3OriginInfoForm )
 from . import vacation_id3_attempt_2
 import json
 import numpy as np
@@ -53,7 +58,6 @@ def question_location(request):
         else:
             # update the origin info
             return redirect('../origin/')
-        form = QuestionForm()
     context = {'form': form, 'object': obj}    
     return render(request, 'questions/get_started.html', context)
 
@@ -64,9 +68,9 @@ def update_origin_info(request):
     if form.is_valid():
         form.save()
         return redirect('../date/')
-        #form = OriginInfoForm()
     context = {'form': form, 'object': obj}
     return render(request, 'questions/origin.html', context)
+
 
 def start_date_view(request):
     obj = get_object_or_404(OriginInfo, id=1)
@@ -74,7 +78,6 @@ def start_date_view(request):
     if form.is_valid():
         form.save()
         return redirect('../num_travelers/')
-        form = Alt1OriginInfoForm()
     context = {'form': form, 'object:': obj}
     return render(request, 'questions/date.html', context)
 
@@ -85,7 +88,6 @@ def num_travelers_view(request):
     if form.is_valid():
         form.save()
         return redirect('../duration/')
-        #form = Alt2OriginInfoForm()
     context = {'form': form, 'object:': obj}
     return render(request, 'questions/num_travelers.html', context)
 
@@ -159,15 +161,20 @@ def get_info(cities_set):
     duration = str(obj.duration)
     df = pd.read_csv('question/destinations_with_static_info.csv')
     df = df[df['city'].isin(cities_set)]
-    df['hotels'] = df.apply(lambda row: hotels.get_hotels(row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
-    df['flights'] = df.apply(lambda row: kiwi.get_flights(origin, row['city'], 
-                date_from=start_date, date_to=start_date, return_from=end_date, return_to=end_date, 
-                roundtrip = True,
-                adults=num_adults, children=0, infants=0,
-                budget=5000, currency='USD',
-                max_duration=duration, 
+    df['hotels'] = df.apply(lambda row: hotels.get_hotels(\
+                   row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
+    df['flights'] = df.apply(lambda row: kiwi.get_flights(\
+                origin, row['city'], \
+                date_from=start_date, date_to=start_date, \
+                return_from=end_date, return_to=end_date, \ 
+                roundtrip = True, \
+                adults=num_adults, children=0, infants=0, \
+                budget=5000, currency='USD', \
+                max_duration=duration, \
                 radius=50, radius_format= 'km'), axis=1)
+
     return df
+
 
 def format_flight(flight_data):
     return_str = ''
@@ -175,11 +182,15 @@ def format_flight(flight_data):
     for i in range(len(itin)):
         leg = itin[i]
         return_str += "Leg " + str(i+1) + ": "  
-        return_str += leg[0][0] + '(' + leg[1][0] + ')'+ ' -> ' + leg[0][1] + '(' + leg[1][1] + ')' + ' Flight No:' + leg[2] + ' | ' 
-    return_str += 'Price: ' + str(flight_data['price']) + '\n' + 'Flight Duration: ' + str(flight_data['total_duration']) + ' hours' + ' | ' +' | '
+        return_str += leg[0][0] + '(' + leg[1][0] + ')'+ ' -> ' + \
+            leg[0][1] + '(' + leg[1][1] + ')' + ' Flight No:' + leg[2] + ' | ' 
+    return_str += 'Price: ' + str(flight_data['price']) + '\n' + \
+                  'Flight Duration: ' + str(flight_data['total_duration']) + \
+                                                       ' hours' + ' | ' +' | '
     return_str += 'Booking Link: ' + flight_data['link']
 
     return return_str    
+
 
 def get_cities(request, id):
     global city_set
@@ -192,6 +203,7 @@ def get_cities(request, id):
         Go from one question to another
         How to store the dictionary
         '''
+
         global city_set
         global count
 
@@ -225,14 +237,16 @@ def get_cities(request, id):
                     context[city_i]=cities[i].title()
                     context[text_i]=str(texts[i])[1:]
                     try:
-                        context[hotel_costi]=str('The cheapest offering is '+hotels[i][0]+' for '+hotels[i][1]+' a night')
+                        context[hotel_costi]=str('The cheapest offering is '\
+                                 +hotels[i][0]+' for '+hotels[i][1]+' a night')
                     except:
                         context[hotel_costi]=="Hotel data unavailable"
                     if flights[i]:
                         context[flight_costi]=format_flight(flights[i][0])
                     else:
                         context[flight_costi]="Flight data unavailable"
-                    context[image_i]='background: url('+str(images[i])[:-3]+');background-size:cover;'
+                    context[image_i]='background: url('+str(images[i])[:-3]+\
+                                                     ');background-size:cover;'
                     
                 print(context)
                 return render(request, 'questions/result.html', context)

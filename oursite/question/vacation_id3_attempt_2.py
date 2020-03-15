@@ -33,16 +33,18 @@ RENAME_DIC={
 
 scores = pd.read_csv('full_country_score.csv')
 
-STD_DICT=dict(scores.std(axis=0, skipna=True))
+STD_DICT=dict(scores.std(axis=0,skipna=True))
 MEAN_DICT=dict(scores.mean(axis=0,skipna=True))
 RANGE_DICT={}
 
 for k,v in STD_DICT.items():
-    RANGE_DICT[k]=(MEAN_DICT[k]-2*v,MEAN_DICT[k]-v,MEAN_DICT[k],MEAN_DICT[k]+v,MEAN_DICT[k]+2*v)
+    RANGE_DICT[k]=(MEAN_DICT[k]-2*v, MEAN_DICT[k]-v, MEAN_DICT[k], \
+                                            MEAN_DICT[k]+v,MEAN_DICT[k]+2*v)
 
 
 for col in [col for col in scores.columns if col!='city']:
-    scores[col]=(scores[col]-scores[col].min())/(scores[col].max()-scores[col].min())*10
+    scores[col]=(scores[col]-scores[col].min()) / \
+                (scores[col].max()-scores[col].min())*10
 
 #scores.drop(['CASINOS'],axis= 1)
 all_scores = pd.DataFrame().append([scores]*200)
@@ -52,36 +54,44 @@ scores[feature_cols] = np.sqrt(scores[feature_cols])
 #all_scores = scores.append(diff_scores)
 variance = pd.DataFrame([scores.var(axis = 0)])
 for columns in feature_cols:
-    all_scores[columns] += np.random.normal(0,np.sqrt(variance[columns]/2),len(all_scores))
-
+    all_scores[columns] += np.random.normal( \
+                        0, np.sqrt(variance[columns] / 2), len(all_scores))
 
 X = all_scores[feature_cols] 
 
 y = all_scores['city']
 
+X_train , X_test , y_train, y_test = train_test_split(X, y, test_size=0.3, \
+                                                             random_state = 1)
 
-X_train , X_test , y_train, y_test = train_test_split(X,y,test_size=0.3,random_state = 1)
-
-clf = DecisionTreeClassifier(max_depth = 12,criterion='entropy',min_samples_leaf = 5)
+clf = DecisionTreeClassifier(max_depth = 12, criterion='entropy', \
+                                                        min_samples_leaf = 5)
 clf = clf.fit(X_train,y_train)
-
 
 y_pred = clf.predict(X_test)
 
-tree_ = clf.tree_ # The actual tree structure.
-n_nodes = clf.tree_.node_count # Child structure : leftchild[i] is the left child to node with absolute path i. etc.
+# The actual tree structure.
+tree_ = clf.tree_ 
+# Child structure : leftchild[i] is the left child to node with absolute path i. etc.
+n_nodes = clf.tree_.node_count 
 children_left = clf.tree_.children_left
 children_right = clf.tree_.children_right
-feature = clf.tree_.feature # Features: Feature[i] returns the column number/feature on which node i is being split.
-threshold = clf.tree_.threshold # Threshold: The value at which the split occurs.
+# Features: Feature[i] returns the column number/feature on which node i is being split.
+feature = clf.tree_.feature 
+# Threshold: The value at which the split occurs.
+threshold = clf.tree_.threshold 
 
-feature_names = [feature_cols[i] for i in feature]# Gives names to feature columns rather than numbers.
+# Gives names to feature columns rather than numbers.
+feature_names = [feature_cols[i] for i in feature]#
 
-leave_id = clf.apply(X_test) #Identifies all the possible leaf nodes of the dataset.
+#Identifies all the possible leaf nodes of the dataset.
+leave_id = clf.apply(X_test) 
+
 
 def add_noise(dictionary):
     for k,v in dictionary.items():
         dictionary[k]=dictionary[k]+np.random.normal(0,STD_DICT[k]/2)
+
 
 def look_for_city(node, dictionary):
     add_noise(dictionary)
@@ -91,8 +101,10 @@ def look_for_city(node, dictionary):
         if feature_names[node] in dictionary:
             response=dictionary[feature_names[node]]
             if response <= threshold[node]:
-                return look_for_city(node = children_left[node], dictionary=dictionary)
+                return look_for_city(node = children_left[node], \
+                                                        dictionary=dictionary)
             else:
-                return look_for_city(node = children_right[node], dictionary=dictionary)
+                return look_for_city(node = children_right[node], \
+                                                        dictionary=dictionary)
         else:
             return(True, feature_names[node])

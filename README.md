@@ -39,7 +39,7 @@ After this navigate to the directory `CMSC-12200-Group-Project/oursite`. From he
 ```
 python3 manage.py runserver
 ```
-You will see the prompt:
+You will see the prompt:    
 ![cmd](Screenshots and Project Related Images/cmd.png)    
 From here, you can use ctrl/cmd + leftclick to acess the website. 
 
