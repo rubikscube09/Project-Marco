@@ -11,12 +11,14 @@ FOOD_DRINK = 'Farmers markets,Distillery Tours,Wineries,Breweries,Distilleries,B
 
 MUSEUMS = 'Observatories/ Planetariums,Military Museums,Museums,Natural History Museums,Children\'s Museums,Science Museums,Specialty Museums,Art Galleries,Art Museums,History Museums'.split(',')
 
+
+
+SEA_NATURE = ['Beaches', 'Bodies of Water', 'Reefs','Islands','Marinas','Swim with dolphins','Duck tours','Bodies of Water','Caves','Dams']
+
 NATURE_PARKS = 'National Parks,Biking Trails,Equestrian Trails,Hiking Trails,\
 Beaches,Zoos,Aquariums,Bodies of Water,Canyons,Caverns/ Caves,Dams,Deserts,\
 Forests,Gardens,Geologic Formations,Hot Springs/ Geysers,Islands,Marinas,Mountains,\
 Nature/ Wildlife Areas,Parks,Reefs,State Parks,Valleys,Volcanos,Waterfalls,Other nature and parks,Nature & wildlife tours'.split(',') + SEA_NATURE
-
-SEA_NATURE = ['Beaches', 'Bodies of Water', 'Reefs','Islands','Marinas','Swim with dolphins','Duck tours','Bodies of Water','Caves','Dams']
 
 GROUND_NATURE = list(set(NATURE_PARKS) - set(SEA_NATURE))
 

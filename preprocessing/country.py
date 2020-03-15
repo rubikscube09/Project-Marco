@@ -9,7 +9,11 @@ geolocator = Nominatim(user_agent='marco')
 
 def get_country(city):
     '''
-    A function to get (cleaned) country from city name.
+
+    Matches city to country using the geopy api. 
+
+    Input: string, city
+    Output: string, no_country if none of the countries matches the city name.
     '''
     try:
         location = geolocator.geocode(city, language='en-US')

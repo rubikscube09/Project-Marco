@@ -6,6 +6,14 @@ clusters = trip_advisor_consts.CLUSTERS
 
 
 def get_attr_dict():
+	'''
+	getting the list of attraction informations from trip_advisor_consts
+
+	Input: None
+
+	Output:
+	a list of image links and attractions dictionary.
+	'''
 	destinations = pd.read_csv('destinations_with_static_info.csv')
 	print(destinations)
 	sample_dests = list(zip(list(destinations['city']),list(destinations['trip_advisor_id'])))
