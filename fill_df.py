@@ -17,6 +17,12 @@ df=df.iloc[1:]
 
 #save_city_to_country_in_dict
 def city_to_country(city):
+    '''
+    Matches city to country using the geopy api. 
+
+    Input: string, city
+    Output: string, no_country if none of the countries matches the city name.
+    '''
     try:
         geolocator = Nominatim(user_agent='marco')
         location = geolocator.geocode(city, language='en-US')
@@ -36,6 +42,11 @@ def city_to_country(city):
             return("no_country")
 
 def fill_country(df):
+    '''
+    fills in the country and city info into the pandas dataframe.
+    Input: df: pandas datafraome
+    Output: None
+    '''
     df['country']=df.apply(lambda row: city_to_country(row['city']), axis=1)
     df['city']=df.apply(lambda row: row['city'].capitalize(), axis=1)
 
@@ -53,6 +64,13 @@ language_dict['The Netherlands']=95
 
 
 def get_language(country):
+    '''
+    Getting the country's corresponding language information from language_dict,
+
+    Input: string: name of a country
+    Output: string: the corresponding language if the country's name is within the\
+    dictionary. Otherwise return No data
+    '''
     try:
         return(language_dict[country])
     except:
@@ -61,6 +79,11 @@ def get_language(country):
 
 
 def fill_language(df):
+    '''
+    Adding the language information gotten from the last function into a pandas dataframe.
+    Input: pandas dataframe
+    Output: None
+    '''
     df['language']=df.apply(lambda row: get_language(row['country']), axis=1)
 
 
@@ -94,36 +117,25 @@ def get_safety_info(starting_url):
 travel_advisory=get_safety_info('https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html/')
 
 def get_safety(country):
+    '''
+    For any added country, get the travel advisory level of such country.
+
+    Input: string
+    Output: string, Level 1: Exercise Normal Precautions if the country is not in the keys of dictionary.
+    '''
+
     try:
         return(travel_advisory[country])
     except:
-        return('Level 1: Exercise Normal Precautioins')
+        return('Level 1: Exercise Normal Precautions')
 
 def fill_safety(df):
     df['safety']=df.apply(lambda row: get_safety(row['country']), axis=1)
 
-#def get_keywords(destinations,j,k, df):
-    '''
-    Extract j non-common words that are best at binning the destinations into k
-    bins above. Return a dataframe with only these key words.
-    '''
-
-def get_weather(df, city, travel_dates):
-    '''
-    Add weather info to dataframe.
-    '''
-
-    # call weather_data
-
-    
-def get_languages(df):
-    '''
-    Add language info to dataframe.
-    '''
 
 def get_flight_costs(df, travel_dates, starting_dest):
     '''
-    Get best flights to each dest, add to dataframe
+    Get best flights to each destination, add to dataframe
     '''
 
     airports = pd.read_csv('airports.csv')
@@ -182,20 +194,4 @@ def get_hotel_costs(df, travel_dates):
     response = requests.get(request_url)
     return response.json()
 
-    
-#FUNCTIONS TO POPULATE TREE
-class tree:
-    '''
-    Leaves are vacations. Nodes are answers to questions above.
-    '''
-
-def populate_tree(df):
-    '''
-    Returns: tree object
-    '''
-
-def query_tree():
-    '''
-    Query our tree and return relevant info.
-    '''
     
