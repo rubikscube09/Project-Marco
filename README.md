@@ -5,12 +5,25 @@ Marco assesses the vacation preferences of a user using an intelligently determi
 questions, and then returns a number of possible vacation locations that the user might
 find interesting or suitable, alongside possible hotel and flight itineraries.
 
-To understand the motivation and some of the mechanics behind Marco, be sure to read through the slides, whose filename is `presentation.pdf `
+To understand the motivation and some of the mechanics behind Marco, be sure to read through the presentation slides: `presentation.pdf `
+
+<!-- toc -->
+
 
 ## Getting Started
 
-###Prerequisites
+### Prerequisites
 Project Marco is built using Python3 and Django Webserver. In order to run Marco, you will need to have the following python packages installed:
+* `pandas`
+* `scikit-learn`
+* `selenium`
+* `requests` 
+* `Django`
+* `django-widget-tweaks`
+* `beautifulsoup4`
+* `geopy`
+
+
 
 ## Usage 
 ### Running Marco
@@ -53,9 +66,30 @@ These results will include the location itself, alongside a brief blurb (sourced
 for a hotel and flight to the location. 
 
 
+## Directories and Source Code
 
-* sklearn
+### `Code/`:
+* `trip_advisor_consts.py` - Clusters attractions based on trip advisor keywords.
+* `cluster_score.py` - Computes scores for each location based on its top-30 attractions (by tripadvisor ranking) and bins spsecified in `trip_advisor_consts.py`. See file docstring for more scoring information.
+* `weather_data.py` - Retrieves weather information for given cities.
+* `vacation_id3_attempt2.py` - Builds and Train decision tree, given scores computed in `cluster_scores.py` and features/bins specified in `trip_advisor_consts.py`. 
+* `kiwi.py` - Retrieves Flight Information from the kiwi.com flights API.
+* `full_country_score.py` - Associated scoring information for each country, collected from `cluster_scores.py`. 
+* `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
+* 
 
+
+###`Data/` 
+
+The following files are data files created at prior to the running of the program. 
+
+### `archive/` 
+
+These files are deprecated and no longer used.
+
+### `oursite/` 
+
+These files and associated directories are those required to build a Django website.
 
 
 - Data
@@ -90,3 +124,4 @@ for a hotel and flight to the location.
         - get_flight_costs from kiwi (old)
         - 
 
+## 
