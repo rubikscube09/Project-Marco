@@ -8,7 +8,11 @@ from geopy.geocoders import Nominatim
 
 def weather(city, date_in_str):
     '''
-    date in 'yyyy-mm-dd'
+    Getting the weather information of a specific city at one day.
+
+    Input:
+    city: string
+    date_in_str: string in the format 'yyyy-mm-dd'
     '''
     # convert city name into latitude and longitude
     #city = input('Enter City Name: ') 

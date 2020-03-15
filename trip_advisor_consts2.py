@@ -71,6 +71,11 @@ STR_OF_CATS = ['BOAT_TOURS','CASINOS', 'CONCERTS_SHOWS', 'FOOD_DRINK', 'MUSEUMS'
  'TOURS', 'AMUSEMENT_PARKS', 'ZOOS', 'SIGHTS_AND_LANDMARKS', 'HISTORIC']
 
 def processing_categories():
+	'''
+	cleaning the categories so that their name matches the ones on tripadvisor api.
+	Input: None
+	Output: dic_cats: dictionary
+	'''
 	empty = []
 	for cat in LIST_OF_CATS:
 		for subgroup in cat:
@@ -86,6 +91,11 @@ def processing_categories():
 	return dic_cats
 
 def getting_category_counts(destination):
+	'''
+	Getting the frequency of activities of one specific destination
+	Input: destination: string
+	Output: dic_freq: a dicttionary that represents the frequency of each activity.
+	'''
 	import hotels
 	locations = hotels.get_attractions(destination)
 	dict_cats = processing_categories()
