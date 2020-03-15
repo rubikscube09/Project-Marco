@@ -8,7 +8,7 @@ import json
 
 def get_cities():
     '''
-    Get cities of interest from city_links_csv
+    Get cities of interest from city_links_csv in 'preprocessing/scraping'
     '''
 
     cities = pd.read_csv(r'..\city_links_csv.csv', header=None, \
@@ -21,6 +21,11 @@ def get_cities():
 def cap_city(name):
     '''
     Capitalize city name to match the url naming convention of wikitravel
+
+    Inputs:
+        name: name of a city
+    
+    Returns: The capitalized name of a city
     '''
 
     names = name.split('-')
@@ -38,8 +43,12 @@ def cap_city(name):
 def scrape(url):
     '''
     Given a url, scrape the things to see and do.
-    I didn't bother scraping the lists since it seems difficult and I don't
-    think we need info like benefits of new york city pass as keyword
+    Lists on page are considered unnecessary info and not scraped
+
+    Inputs:
+        url: url to a certain city on wikitravel
+
+    Returns: A dictionary of the things to see and do in the city
     '''
 
     html = requests.get(url).text
@@ -95,6 +104,12 @@ def scrape(url):
 def scrape_all(verbose=False):
     '''
     Find links and scrape everything.
+
+    Inputs:
+        verbose: determines whether to print some extra information or not
+    
+    Returns:
+        Data of the things to do and see in different cities on wikitravel.
     '''
 
     with open("list_cities.txt", "rb") as f:
