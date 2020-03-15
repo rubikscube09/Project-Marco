@@ -1,3 +1,7 @@
+# File containing clusters for tripadvisor data. 
+# Clustering based on human evaluation of how organization might look
+
+
 BOAT_TOURS = 'Kayaking & canoeing,Stand-Up Paddleboarding,Waterskiing & jetskiing,Swim with dolphins,Surfing,\
 Windsurfing & Kitesurfing,Submarine tours,Shark diving,Scuba & snorkelling,River rafting & tubing,\
 Parasailing & paragliding,Water sports,Speed boats tours,Duck tours,Boat Tours,Boat rentals,\
