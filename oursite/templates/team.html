@@ -1,13 +1,102 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<style>
+.column {
+    float: left;
+    width: 23.5%;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  
+ @media screen and (max-width: 1080px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  .button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button:hover {
+    background-color: #555;
+  }
+</style>
 
-<span>
-<ul style="list-style-type:none; margin:14px; padding:14px;">
-{% for member in team %}
-    <li>{{ member }}</li>
-{% endfor %}
-</ul>
-</span>
+<div class="row">
+    <div class="column">
+      <div class="card">
+        <img src="{% static 'pages/abhi.jpg' %}" alt="Abhi" style="width:100%">
+        <div class="container">
+          <h2>{{ team.0 }}</h2>
+          <p class="title">Class of 2020</p>
+          <p>achoudhary@uchicago.edu</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card">
+        <img src="{% static 'pages/ezra.jpg' %}" alt="Ezra" style="width:100%">
+        <div class="container">
+          <h2>{{ team.1 }}</h2>
+          <p class="title">Class of 2020</p>
+          <p>ezra.d.max@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card">
+        <img src="{% static 'pages/zhuhao.jpg' %}" alt="Hao" style="width:100%">
+        <div class="container">
+          <h2>{{ team.2 }}</h2>
+          <p class="title">Class of 2022</p>
+          <p>haozhu@uchicago.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+          <img src="{% static 'pages/shiyu.jpg' %}" alt="Shiyu" style="width:100%">
+          <div class="container">
+            <h2>{{ team.3 }}</h2>
+            <p class="title">Class of 2022</p>
+            <p>shiyutian@uchicago.edu</p>
+          </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

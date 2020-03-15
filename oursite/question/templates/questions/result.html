@@ -35,13 +35,13 @@ body{
     color: black;
     padding: 50px 15px;}
 
-
   .title{
     font: 60px bold Helvetica;
-    martin-top: 0px;
-    color=black;
+    margin-top: 0px;
+    color: black;
     margin-bottom: 0px
   }
+
   .left{width: 15%;
     background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
     height: 1400px;
@@ -49,6 +49,7 @@ body{
     background-position:left;
     background-size:cover;
   }
+
   .right{width: 15%;
     background: url(https://www.goodfreephotos.com/albums/other-landscapes/shoreline-of-sand-and-ocean.jpg);
     height: 1400px;
@@ -56,6 +57,7 @@ body{
     background-position: right;
     background-size:cover;
   }
+
   .city_box{
     margin-left:auto;
     margin-right:auto;
@@ -66,6 +68,7 @@ body{
     height:150px;
     opacity: .75;
   }
+
   .city_box:hover{
   margin-left:auto;
   margin-right:auto;
@@ -79,11 +82,12 @@ body{
   #HiddenText {
     display: none;
   }
+
   .city_box:hover #HiddenText {
     display:block;
-}
+  }
 
-.boxed_info{
+  .boxed_info{
 	border: 10px solid #6e6d6d;
 	background: 10px #6e6d6d;
 	padding: 20px 20px;
@@ -94,8 +98,7 @@ body{
 	margin-right: auto;
 	overflow-y: scroll;
 	padding: 20px 20px;
-}
-
+  }
 </style>
 
 <div>
@@ -122,6 +125,5 @@ body{
   <div id="HiddenText"><h1 class="boxed">{{ text3 }}</h1><h1 class="boxed_info">{{ hotel_cost3 }}</h1><h1 class="boxed_info">{{ flight_cost3 }}</h1></div>
 </div>
 </div>
-</html>
 
 {% endblock %}

@@ -155,19 +155,20 @@ def get_info(cities_set):
     origin = obj.location
     num_adults = obj.num_travelers
     start_date = obj.start_date
-    start_date = start_date.strftime(r"%d/%m/%Y")
     end_date = obj.end_date
+    nights = str((end_date - start_date).days)
+    start_date = start_date.strftime(r"%d/%m/%Y")
     end_date = end_date.strftime(r"%d/%m/%Y")
     duration = str(obj.duration)
     df = pd.read_csv('question/destinations_with_static_info.csv')
     df = df[df['city'].isin(cities_set)]
     df['hotels'] = df.apply(lambda row: hotels.get_hotels(\
-                   row['trip_advisor_id'], 3, '01/01/2021', 5)[0][0:2], axis=1)
+                   row['trip_advisor_id'], num_adults, start_date, \
+                                                    nights)[0][0:2], axis=1)
     df['flights'] = df.apply(lambda row: kiwi.get_flights(\
                 origin, row['city'], \
                 date_from=start_date, date_to=start_date, \
-                return_from=end_date, return_to=end_date, \ 
-                roundtrip = True, \
+                return_from=end_date, return_to=end_date, roundtrip = True, \
                 adults=num_adults, children=0, infants=0, \
                 budget=5000, currency='USD', \
                 max_duration=duration, \
