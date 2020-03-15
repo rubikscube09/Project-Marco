@@ -141,7 +141,7 @@ These files and associated directories are those required to build a Django webs
         - 
 
 ## Future Additions
-As a team, we have thought of many future additions and improvements for this project. Most can be found in the final slides of `Screenshots and Project Related Images/CS 122 Final Presentation.pdf. Here are the improvements we feel would be particularly benefical:
+As a team, we have thought of many future additions and improvements for this project. Most can be found in the final slides of `Screenshots and Project Related Images/CS 122 Final Presentation.pdf`. Here are the improvements we feel would be particularly benefical:
 * Diversification of Data Sources - Use more APIs and websites to obtain information.
 * Restructuring of Features/Bins - Make these bins more or less granular, based on user's taste.
 * Training of the Decision Tree - Find users who would be willing to score locations.
