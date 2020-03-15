@@ -92,10 +92,9 @@ Here we will list some information for particularly relevant files and source co
 * `kiwi.py` - Retrieves Flight Information from the kiwi.com flights API.
 * `full_country_score.py` - Associated scoring information for each country, collected from `cluster_scores.py`. 
 * `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
-* 
 
 
-###`Data/` 
+### `Data/` 
 
 The following files are data files created at prior to the running of the program. 
 
@@ -138,7 +137,6 @@ These files and associated directories are those required to build a Django webs
         - hotel_costs.py -- Slow hotel costs information scraper
     - outline_pseudocode.py -- Project outline
         - get_flight_costs from kiwi (old)
-        - 
 
 ## Future Additions
 As a team, we have thought of many future additions and improvements for this project. Most can be found in the final slides of `Screenshots and Project Related Images/CS 122 Final Presentation.pdf`. Here are the improvements we feel would be particularly benefical:

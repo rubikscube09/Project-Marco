@@ -11,11 +11,13 @@ def weather(city, date_in_str):
     Getting the weather information of a specific city at one day.
 
     Input:
-    city: string
-    date_in_str: string in the format 'yyyy-mm-dd'
+        city: string
+        date_in_str: string in the format 'yyyy-mm-dd'
+    
+    Returns: Average temprature and precipitation
     '''
+
     # convert city name into latitude and longitude
-    #city = input('Enter City Name: ') 
     geolocator = Nominatim(user_agent='marco')
     location = geolocator.geocode(city)
     lat = location.latitude
@@ -23,7 +25,6 @@ def weather(city, date_in_str):
     lon = location.longitude
     lon = str(lon)
 
-    #date_in_str = input('Enter date of interest(yyyy-mm-dd): ')
     date_in = datetime.datetime.strptime(date_in_str, "%Y-%m-%d")
     today = datetime.datetime.today()
     # calculate difference between input date and today's date
