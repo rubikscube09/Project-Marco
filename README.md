@@ -133,3 +133,6 @@ As a team, we have thought of many future additions and improvements for this pr
 * Scoring System - Compare and contrast different methods of scoring locations and decaying based on relative popularity.
 * UI/UX - Spend more time polishing the UI/UX, and speeding up the Django website. 
 * Stability - Currently, due to our method of crawling a decision tree, we sometimes encounter recursion stack issues. Finding a different structure (perhaps a non-recursive one) would help in this 
+
+
+Thank you for reading!
