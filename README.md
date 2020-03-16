@@ -6,11 +6,10 @@ Project Marco (named after the renowned explorer Marco Polo) is an application t
 hopes to make vacation planning easier for the indecisive or conflicted traveler. Roughly speaking, 
 Marco assesses the vacation preferences of a user using an intelligently determined series of 
 questions, and then returns a number of possible vacation locations that the user might
-find interesting or suitable, alongside possible hotel and flight itineraries. 
+find interesting or suitable, alongside possible hotel and flight itineraries. Project Marco currently supports 
+vacations to 240 cities, and hopes to add more in the future. 
 
 To understand the motivation and some of the mechanics behind Marco, be sure to read through the presentation slides: `Screenshots and Project Related Images/CS 122 Final Presentation.pdf`
-
-<!-- toc -->
 
 
 ## Getting Started
@@ -26,7 +25,7 @@ Project Marco is built using Python3 and Django Webserver. In order to run Marco
 * `beautifulsoup4`
 * `geopy`
 
-
+Strictly speaking, not all of these packages are required, however some will be useful if you would like to take a look under the hood at certain aspects of the project. 
 
 ## Usage 
 ### Running Marco
@@ -95,12 +94,20 @@ Here we will list some information for particularly relevant files and source co
 * `full_country_score.py` - Associated scoring information for each country, collected from `cluster_scores.py`. 
 * `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
 
+### `Screenshots and Project Related Images/`
+Contains images related to project, as well as the project presentation.
+
+
+### `Preprocessing/`
+
+The files in this folder are scripts related to processing and obtaining the static data for the project, for example, data that does not change for say, five years in time. One example of this is attractions 
+data: a reasonable assumption is that the attractions that make a city famous now will make it famous in the near future. All of this data is processed in this folder.
 
 ### `Scraping/` 
 
 The files in this folder are scripts and data related to the webscraping portion of the project. In particular, they contain data acquired from scraping the LonelyPlanet website. Some important files in this folder are:
-    * scrape_city_links.py -- Scrape city links from Lonely Planet
-    * scrape_city_pages.py -- Scrape info from city pages on Lonely Planet 
+* scrape_city_links.py -- Scrape city links from Lonely Planet
+* scrape_city_pages.py -- Scrape info from city pages on Lonely Planet 
 
 ### `oursite/` 
 
