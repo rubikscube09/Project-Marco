@@ -90,15 +90,6 @@ and price are listed, alongside a booking link, should you wish to book your vac
 
 Here we will list some information for particularly relevant files and source code.
 
-###  Main Directory:
-* `trip_advisor_consts.py` - Clusters attractions based on trip advisor keywords.
-* `trip_advisor_consts.py`
-* `cluster_score.py` - Computes scores for each location based on its top-30 attractions (by tripadvisor ranking) and bins spsecified in `trip_advisor_consts.py`. See file docstring for more scoring information.
-* `weather_data.py` - Retrieves weather information for given cities.
-* `vacation_id3_attempt2.py` - Builds and Train decision tree, given scores computed in `cluster_scores.py` and features/bins specified in `trip_advisor_consts.py`. 
-* `kiwi.py` - Retrieves Flight Information from the kiwi.com flights API.
-* `full_country_score.py` - Associated scoring information for each country, collected from `cluster_scores.py`. 
-* `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
 
 ### `Screenshots and Project Related Images/`
 Contains images related to project, as well as the project presentation.
@@ -122,7 +113,13 @@ These files and associated directories are those required to build a Django webs
 * `/question/views.py` - Script that renders HTML pages. 
 * `/question/models.py` - Contains models for each page.
 * `/templates/` - Contains stylistic templates for each page.
-
+* `trip_advisor_consts.py` - Clusters attractions based on trip advisor keywords.
+* `cluster_score.py` - Computes scores for each location based on its top-30 attractions (by tripadvisor ranking) and bins spsecified in `trip_advisor_consts.py`. See file docstring for more scoring information.
+* `weather_data.py` - Retrieves weather information for given cities.
+* `vacation_id3_attempt2.py` - Builds and Train decision tree, given scores computed in `cluster_scores.py` and features/bins specified in `trip_advisor_consts.py`. 
+* `kiwi.py` - Retrieves Flight Information from the kiwi.com flights API.
+* `full_country_score.py` - Associated scoring information for each country, collected from `cluster_scores.py`. 
+* `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
 
 
 ## Future Additions
