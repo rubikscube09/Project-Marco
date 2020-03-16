@@ -43,6 +43,10 @@ def question_location(request):
     '''
     The first question asked, namely "Is <location displayed> your current 
     location?". Redirect to different pages based on user response.
+
+    Input: request from a browser
+
+    Output: rendered getting started page or location update page
     '''
 
     obj = get_object_or_404(OriginInfo, id=1)
@@ -63,6 +67,14 @@ def question_location(request):
 
 
 def update_origin_info(request):
+    '''
+    Handles the rendering of the location update page.
+
+    Input: request from browser
+
+    Output: rendered location update page
+    '''
+
     obj = get_object_or_404(OriginInfo, id=1)
     form = AltOriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -73,6 +85,14 @@ def update_origin_info(request):
 
 
 def start_date_view(request):
+    '''
+    Handles the rendering of the travel dates page.
+
+    Input: request from browser
+
+    Output: rendered travel dates page
+    '''
+    
     obj = get_object_or_404(OriginInfo, id=1)
     form = Alt1OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -83,6 +103,14 @@ def start_date_view(request):
 
 
 def num_travelers_view(request):
+    '''
+    Handles the rendering of the number of travelers page.
+
+    Input: request from browser
+
+    Output: rendered number of travelers page
+    '''
+
     obj = get_object_or_404(OriginInfo, id=1)
     form = Alt2OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -93,6 +121,14 @@ def num_travelers_view(request):
 
 
 def duration_view(request):
+    '''
+    Handles the rendering of the flight duration page.
+
+    Input: request from browser
+
+    Output: rendered flight duration page
+    '''
+
     obj = get_object_or_404(OriginInfo, id=1)
     form = Alt3OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -103,12 +139,28 @@ def duration_view(request):
 
 
 def question_list_view(request):
+    '''
+    Handles the rendering of the question list page.
+
+    Input: request from browser
+
+    Output: rendered question list page
+    '''
+
     queryset = Question.objects.all()
     context = {'object_list': queryset}
     return render(request, 'questions/question_list.html', context)
 
 
 def dynamic_lookup_view(request, id):
+    '''
+    Helps with the rendering of the question list page.
+
+    Input: request from browser
+
+    Output: rendered question for each question in the question list page
+    '''
+
     obj = get_object_or_404(Question, id=id)
     form = QuestionForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -120,7 +172,11 @@ def dynamic_lookup_view(request, id):
 
 def get_answer(id):
     '''
-    Assuming the user has already made an input, get the answer from db.
+    Assuming the user has already made an input, get the answer from database.
+
+    Input: id of a object in the database
+
+    Output: information stored in the answer attribute of the object
     '''
 
     obj = get_object_or_404(Question, id=id)
@@ -130,6 +186,12 @@ def get_answer(id):
 def run_question(dictionary, id):
     '''
     Use the answer to the current question to predict the next best question
+
+    Input:
+        dictionary: a dictionary of category and user reponses
+        id: id of a object in the database
+    
+    Output: The next best questions
     '''
 
     proceed, qn = vacation_id3_attempt_2.look_for_city(0, dictionary)
@@ -145,6 +207,15 @@ def run_question(dictionary, id):
 
 
 def get_info(cities_set):
+    '''
+    Given a set of cities, get their hotels information, flights information
+    and weather information by using prepared functions.
+
+    Input: a set of cities we want information
+    
+    Output: A dataframe of information we want (hotels, flights and weather)
+    '''
+
     obj = get_object_or_404(OriginInfo, id=1)
     origin = obj.location
     num_adults = obj.num_travelers
@@ -175,6 +246,14 @@ def get_info(cities_set):
 
 
 def format_flight(flight_data):
+    '''
+    Given flight data, reformat it and get rid of the unnecessary information.
+
+    Input: flight data
+
+    Output: cleaned flight data
+    '''
+
     return_str = ''
     itin = flight_data['Itinerary']
     for i in range(len(itin)):
@@ -199,6 +278,13 @@ def get_cities(request, id):
     def next_question(request, id):
         '''
         Go from one question to another
+
+        Input:
+            request: request from browser
+            id: id of a object in the database
+        
+        Output:
+            diffrent rendered webpages: results page or next question
         '''
 
         global city_set
@@ -240,7 +326,7 @@ def get_cities(request, id):
                         context[hotel_costi]=str('The cheapest offering is '\
                                  +hotels[i][0]+' for '+hotels[i][1]+' a night')
                     else:
-                        context[hotel_costi]=="Hotel data unavailable"
+                        context[hotel_costi] = "Hotel data unavailable"
                     if flights[i]:
                         context[flight_costi]=format_flight(flights[i][0])
                     else:
