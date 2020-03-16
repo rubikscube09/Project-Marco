@@ -114,7 +114,6 @@ def look_for_city2(node, dictionary):
     '''
     Helper function for look_for_city that only adds noise once.
     '''
-
     add_noise(dictionary)
     return look_for_city(node, dictionary)
 
@@ -127,16 +126,21 @@ def look_for_city(node, dictionary):
     some numerical structure, and one can find nodes and their children 
     through an array lookup structure, as seen above.
     '''
-
-    if node in leave_id:
+    if node in leave_id or children_left[node] == -1 or children_right[node] == - 1:
         return (False, clf.classes_[np.argmax(tree_.value[node])])
     else:
         if feature_names[node] in dictionary:
             response=dictionary[feature_names[node]]
             if response <= threshold[node]:
+                print ('left')
+                print(children_left[node])
+                print(clf.classes_[np.argmax(tree_.value[node])])
                 return look_for_city(node = children_left[node], \
                                                         dictionary=dictionary)
             else:
+                print('right')
+                print(children_right[node])
+                print(clf.classes_[np.argmax(tree_.value[node])])
                 return look_for_city(node = children_right[node], \
                                                         dictionary=dictionary)
         else:
