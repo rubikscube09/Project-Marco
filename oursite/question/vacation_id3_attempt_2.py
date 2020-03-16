@@ -9,8 +9,22 @@ from sklearn.tree import export_graphviz
 from sklearn.externals.six import StringIO  
 from IPython.display import Image  
 from scipy import sparse
-#import pydotplus
 
+
+'''
+
+Generates a decision tree using the sklearn implementation. In order to 
+train the decision tree, data is generated using normal perturbation of 
+collected sample scores. The normal perturbation of the feature is 
+distributed as N(0,Var(Feature)), that is to say, we assume the sample 
+features match the true mean of the scores, the scores are normally distributed
+and their variance is proportional to the sample variance. This assumption 
+is accurate under certain assumptions, but we hope to have true training data 
+in future implementations.
+
+'''
+
+#Dictionary renaming the possible categories.
 RENAME_DIC={
         'NATURE_PARKS': 'Parks',
         'TOURS': 'Organized tours',
@@ -30,13 +44,16 @@ RENAME_DIC={
         'FOOD_DRINK': 'Restaurants and bars',
         'MUSEUMS': 'Culture and museums'
         }
-
+#Reads in previously computed scores for each country.
 scores = pd.read_csv('full_country_score.csv')
 
+
+#Computes mean and standard deviation for each score category.
 STD_DICT=dict(scores.std(axis=0,skipna=True))
 MEAN_DICT=dict(scores.mean(axis=0,skipna=True))
 RANGE_DICT={}
 
+#Perturb scores to randomly generate training data.
 for k,v in STD_DICT.items():
     RANGE_DICT[k]=(MEAN_DICT[k]-2*v, MEAN_DICT[k]-v, MEAN_DICT[k], \
                                             MEAN_DICT[k]+v,MEAN_DICT[k]+2*v)
@@ -46,12 +63,9 @@ for col in [col for col in scores.columns if col!='city']:
     scores[col]=(scores[col]-scores[col].min()) / \
                 (scores[col].max()-scores[col].min())*10
 
-#scores.drop(['CASINOS'],axis= 1)
 all_scores = pd.DataFrame().append([scores]*200)
 feature_cols = scores.columns[1:] 
 scores[feature_cols] = np.sqrt(scores[feature_cols])
-#diff_scores = [scores]*100
-#all_scores = scores.append(diff_scores)
 variance = pd.DataFrame([scores.var(axis = 0)])
 for columns in feature_cols:
     all_scores[columns] += np.random.normal( \
@@ -89,11 +103,21 @@ leave_id = clf.apply(X_test)
 
 
 def add_noise(dictionary):
+    '''
+    Adds noise to sample data to generate traning data.
+    '''
     for k,v in dictionary.items():
         dictionary[k]=dictionary[k]+np.random.normal(0,STD_DICT[k]/2)
 
 
 def look_for_city(node, dictionary):
+    '''
+    Recursively over the outputted sklearn tree to find the correct node/class/
+    city based on user preferences. Sklearn trees are rather odd in their
+    implementation. Nodes are given absolute numerical values rather than
+    some numerical structure, and one can find nodes and their children 
+    through an array lookup structure, as seen above.
+    '''
     add_noise(dictionary)
     if node in leave_id:
         return (False, clf.classes_[np.argmax(tree_.value[node])])
