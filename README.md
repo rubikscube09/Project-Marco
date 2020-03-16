@@ -11,6 +11,10 @@ vacations to 240 cities, and hopes to add more in the future.
 
 To understand the motivation and some of the mechanics behind Marco, be sure to read through the presentation slides: `Screenshots and Project Related Images/CS 122 Final Presentation.pdf`
 
+** IMPORTANT **
+On the results page, please do not mouse over the text until the background picture has already loaded.     
+Please do not click too rapidly or click submit buttons more than once.        
+If the website gives an error, please try again by going back to the home page. During our testing, the program worked 10 times in a row and errors shouldn't be very common.    
 
 ## Getting Started
 
