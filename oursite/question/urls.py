@@ -13,11 +13,11 @@ from .views import (
 app_name = 'questions'
 urlpatterns = [
     path('', question_list_view),
-    path('genie/<int:id>/', dynamic_lookup_view, name='question-list'),
+    path('<int:id>/', dynamic_lookup_view, name='question-list'),
     path('getting-started/', question_location),
     path('origin/', update_origin_info),
     path('date/', start_date_view),
-    path('test/<int:id>/', get_cities),
+    path('genie/<int:id>/', get_cities),
     path('num_travelers/', num_travelers_view),
     path('duration/', duration_view)
 ]

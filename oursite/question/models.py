@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 from datetime import date
 
 # Create your models here.
@@ -35,3 +36,7 @@ class OriginInfo(models.Model):
 
     def clean_answer(self):
         answer = self.clean_data.get('answer')
+    
+    def clean(self):
+        if self.start_date > self.end_date:
+            raise ValidationError('Please choose another date')

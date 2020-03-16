@@ -97,7 +97,7 @@ def duration_view(request):
     form = Alt3OriginInfoForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect('../test/2/')
+        return redirect('../genie/2/')
     context = {'form': form, 'object:': obj}
     return render(request, 'questions/duration.html', context)
 
@@ -116,12 +116,6 @@ def dynamic_lookup_view(request, id):
         form = QuestionForm()
     context = {'object': obj, 'form': form}
     return render(request, 'questions/question_detail.html', context)
-
-
-def question_list_view(request):
-    queryset = Question.objects.all()
-    context = {'object_list': queryset}
-    return render(request, 'questions/question_list.html', context)
 
 
 def get_answer(id):
@@ -158,6 +152,7 @@ def get_info(cities_set):
     end_date = obj.end_date
     nights = str((end_date - start_date).days)
     start_date = start_date.strftime(r"%d/%m/%Y")
+    start_date_alt = obj.start_date.strftime(r"%Y-%m-%d")
     end_date = end_date.strftime(r"%d/%m/%Y")
     duration = str(obj.duration)
     df = pd.read_csv('question/destinations_with_static_info.csv')
@@ -173,6 +168,8 @@ def get_info(cities_set):
                 budget=5000, currency='USD', \
                 max_duration=duration, \
                 radius=50, radius_format= 'km'), axis=1)
+    df['weather'] = df.apply(lambda row: weather_data.weather(row['city'], \
+                                                     start_date_alt), axis=1)
 
     return df
 
@@ -202,7 +199,6 @@ def get_cities(request, id):
     def next_question(request, id):
         '''
         Go from one question to another
-        How to store the dictionary
         '''
 
         global city_set
@@ -219,28 +215,31 @@ def get_cities(request, id):
             new_qn = run_question(dictionary, id)
             if new_qn in REDIRECT_DIC:
                 new_id = REDIRECT_DIC[new_qn]
-                return redirect('../../test/{}/'.format(new_id))
+                return redirect('../../genie/{}/'.format(new_id))
             elif len(city_set)>=3 or count>=10:
-                context={}
-                df=get_info(city_set)
-                cities=list(df['city'])
-                images=list(df['image'])
-                texts=list(df['text'])
-                flights=list(df['flights'])
-                hotels=list(df['hotels'])
+                context = {}
+                df = get_info(city_set)
+                cities = list(df['city'])
+                images = list(df['image'])
+                texts = list(df['text'])
+                flights = list(df['flights'])
+                hotels = list(df['hotels'])
+                weather = list(df['weather'])
                 
                 for i in range(len(cities)):
-                    city_i='city'+str(i+1)
-                    text_i='text'+str(i+1)
-                    hotel_costi='hotel_cost'+str(i+1)
-                    flight_costi='flight_cost'+str(i+1)
-                    image_i='imagelink'+str(i+1)
-                    context[city_i]=cities[i].title()
-                    context[text_i]=str(texts[i])[1:]
-                    try:
+                    city_i = 'city' + str(i + 1)
+                    text_i = 'text' + str(i + 1)
+                    hotel_costi = 'hotel_cost' + str(i + 1)
+                    flight_costi = 'flight_cost' + str(i + 1)
+                    weather_i = 'weather' + str(i + 1)
+                    image_i = 'imagelink' + str(i + 1)
+                    context[city_i] = cities[i].title()
+                    context[text_i] = str(texts[i])[1:]
+                    context[weather_i] = weather[i]
+                    if hotels[i]:
                         context[hotel_costi]=str('The cheapest offering is '\
                                  +hotels[i][0]+' for '+hotels[i][1]+' a night')
-                    except:
+                    else:
                         context[hotel_costi]=="Hotel data unavailable"
                     if flights[i]:
                         context[flight_costi]=format_flight(flights[i][0])

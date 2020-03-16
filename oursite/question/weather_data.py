@@ -19,7 +19,6 @@ def weather(city, date_in_str):
     lon = location.longitude
     lon = str(lon)
 
-    #date_in_str = input('Enter date of interest(yyyy-mm-dd): ')
     date_in = datetime.datetime.strptime(date_in_str, "%Y-%m-%d")
     today = datetime.datetime.today()
     # calculate difference between input date and today's date
@@ -53,6 +52,8 @@ def weather(city, date_in_str):
         # rainfall probability
         prob_precip = data0['precipProbability']
         av_temp = (app_temp_h + app_temp_l) / 2
+        av_temp = 'Average Temperature: ' + str(av_temp)
+        prob_precip = 'Chance of rain: ' + str(prob_precip*100) + '%'
         return (av_temp, prob_precip)
 
     else:
@@ -74,6 +75,9 @@ def weather(city, date_in_str):
                 min_t = day["app_min_temp"]
                 # chance of rain
                 precip = day['precip']
-            
         av_temp = (max_t + min_t) / 2
-        return (av_temp, precip)
+
+        av_temp = 'Average Temperature: ' + str(av_temp)
+        prob_precip = 'Chance of rain: ' + str(precip * 100) + '%'
+
+        return (av_temp, prob_precip)
