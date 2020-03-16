@@ -1,5 +1,8 @@
 # Project Marco
-Please use a markdown reader to read this document, your experience will be greatly enhanced by it.
+Please use a markdown reader to read this document, your experience will be greatly enhanced by it. To do so on this VM, navigate to the project directory
+and use the command
+
+`grip -b README.md`
 
 
 Project Marco (named after the renowned explorer Marco Polo) is an application that 
