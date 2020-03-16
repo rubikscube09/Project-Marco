@@ -61,4 +61,4 @@ def get_hotels(location_id,
                 (data['latitude'], data['longitude'])) \
                     for data in resp_data_price_sort]
     except:
-        return "Hotel data unavailable"
+        return [[None, None]]

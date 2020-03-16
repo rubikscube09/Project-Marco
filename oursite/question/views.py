@@ -194,7 +194,7 @@ def run_question(dictionary, id):
     Output: The next best questions
     '''
 
-    proceed, qn = vacation_id3_attempt_2.look_for_city(0, dictionary)
+    proceed, qn = vacation_id3_attempt_2.look_for_city2(0, dictionary)
     if not proceed:
         return qn
     else:
@@ -228,6 +228,7 @@ def get_info(cities_set):
     duration = str(obj.duration)
     df = pd.read_csv('question/destinations_with_static_info.csv')
     df = df[df['city'].isin(cities_set)]
+    
     df['hotels'] = df.apply(lambda row: hotels.get_hotels(\
                    row['trip_advisor_id'], num_adults, start_date, \
                                                     nights)[0][0:2], axis=1)
@@ -322,7 +323,7 @@ def get_cities(request, id):
                     context[city_i] = cities[i].title()
                     context[text_i] = str(texts[i])[1:]
                     context[weather_i] = weather[i]
-                    if hotels[i]:
+                    if hotels[i] != [None, None]:
                         context[hotel_costi]=str('The cheapest offering is '\
                                  +hotels[i][0]+' for '+hotels[i][1]+' a night')
                     else:

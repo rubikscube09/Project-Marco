@@ -59,9 +59,15 @@ class OriginInfo(models.Model):
 
     def clean(self):
         '''
-        Validate the starting and end dates, raise an error if the starting
-        date is later than the end date.
+        Validate the starting and end dates, the number of travelers and the 
+        flight duration, raise an error if the starting date is later than 
+        the end date or if the number of travelers or the flight duration
+        is negative
         '''
 
         if self.start_date > self.end_date:
             raise ValidationError('Please choose another date')
+        if self.num_travelers < 0:
+            raise ValidationError('Please choose a positive number')
+        if self.duration < 0:
+            raise ValidationError('Plase choose a positive number')

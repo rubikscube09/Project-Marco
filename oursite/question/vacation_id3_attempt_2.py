@@ -105,8 +105,18 @@ def add_noise(dictionary):
     '''
     Adds noise to sample data to generate traning data.
     '''
+
     for k,v in dictionary.items():
         dictionary[k]=dictionary[k]+np.random.normal(0,STD_DICT[k]/2)
+
+
+def look_for_city2(node, dictionary):
+    '''
+    Helper function for look_for_city that only adds noise once.
+    '''
+
+    add_noise(dictionary)
+    return look_for_city(node, dictionary)
 
 
 def look_for_city(node, dictionary):
@@ -117,7 +127,7 @@ def look_for_city(node, dictionary):
     some numerical structure, and one can find nodes and their children 
     through an array lookup structure, as seen above.
     '''
-    add_noise(dictionary)
+
     if node in leave_id:
         return (False, clf.classes_[np.argmax(tree_.value[node])])
     else:
