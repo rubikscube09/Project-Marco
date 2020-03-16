@@ -77,8 +77,8 @@ def get_flights(fly_from, fly_to,
 
     flight_response = requests.get(url)
     flight_resp_dict = flight_response.json()
-    if not flight_resp_dict:
-        return 
+    if flight_resp_dict['data'] == []:
+        return None
     flight_data = flight_resp_dict['data']
     # Condition that flight is not too long and not too expensive
     filt_flight_data = [x for x in flight_data if float(x['price'])<= budget \
