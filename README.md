@@ -30,6 +30,7 @@ Project Marco is built using Python3 and Django Webserver. In order to run Marco
 
 ## Usage 
 ### Running Marco
+Prior to running Marco, you will want to allocate a large amount of memory to your virtual machine. In particular, the graphical interface can be rather demanding at times.
 To run Marco, first clone the repository using the command:
 
 ```
@@ -84,8 +85,9 @@ and price are listed, alongside a booking link, should you wish to book your vac
 
 Here we will list some information for particularly relevant files and source code.
 
-### `Code/`:
+###  Main Directory:
 * `trip_advisor_consts.py` - Clusters attractions based on trip advisor keywords.
+* `trip_advisor_consts.py`
 * `cluster_score.py` - Computes scores for each location based on its top-30 attractions (by tripadvisor ranking) and bins spsecified in `trip_advisor_consts.py`. See file docstring for more scoring information.
 * `weather_data.py` - Retrieves weather information for given cities.
 * `vacation_id3_attempt2.py` - Builds and Train decision tree, given scores computed in `cluster_scores.py` and features/bins specified in `trip_advisor_consts.py`. 
@@ -94,49 +96,21 @@ Here we will list some information for particularly relevant files and source co
 * `hotels.py` - Retrieves hotel and location attraction data using the TripAdvisor Travel API.
 
 
-### `Data/` 
+### `Scraping/` 
 
-The following files are data files created at prior to the running of the program. 
-
-### `archive/` 
-
-These files are deprecated and no longer used.
+The files in this folder are scripts and data related to the webscraping portion of the project. In particular, they contain data acquired from scraping the LonelyPlanet website. Some important files in this folder are:
+    * scrape_city_links.py -- Scrape city links from Lonely Planet
+    * scrape_city_pages.py -- Scrape info from city pages on Lonely Planet 
 
 ### `oursite/` 
 
-These files and associated directories are those required to build a Django website.
+These files and associated directories are those required to build a Django website. These files contain a local copy of certain files in the main directory so that they can be accessed by the Django website.  Moreover, the following files are rather important for the correct functioning of the website.
+
+* `/question/views.py` - Script that renders HTML pages. 
+* `/question/models.py` - Contains models for each page.
+* `/templates/` - Contains stylistic templates for each page.
 
 
-- Data
-    - List countries English-speaking population.html -- language.py
-    - language.json -- language.py
-    - Travel Advisories.html (exmaple) -- safety.py
-    - airports.csv -- kiwi.py, skyscanner.py
-    - city_links_csv.csv -- scrape_city_links.py
-    - destination.csv -- scrape_city_pages.py
-- Functions
-    - scrape_city_links.py -- Scrape city links from Lonely Planet
-    - scapre_city_pages.py -- Scrape info from city pages on Lonely Planet
-    - constants.py -- Keywords and keywords dictionary
-    - country.py -- Get country of a city
-    - process_city_keywords.py -- WIP
-    - process_static_data.py -- Output static info
-    - current_location.py -- Get user's current location by ip address
-    - safety.py -- Get travel advisories
-    - get_keywords.py -- Get keywords from a paragraph
-    - language.py -- Get percentage of English speakers by country
-    - kiwi.py -- Flight costs information by kiwi.com
-    - skyscanner.py -- Flight costs information by skyscanner api
-    - pile_driver.py -- 
-    - weather_data.py -- Getting weather related data
-- Archived
-    - Proposal
-        - Proposal.txt
-        - proposal.pdf
-    - Functions
-        - hotel_costs.py -- Slow hotel costs information scraper
-    - outline_pseudocode.py -- Project outline
-        - get_flight_costs from kiwi (old)
 
 ## Future Additions
 As a team, we have thought of many future additions and improvements for this project. Most can be found in the final slides of `Screenshots and Project Related Images/CS 122 Final Presentation.pdf`. Here are the improvements we feel would be particularly benefical:
@@ -145,3 +119,4 @@ As a team, we have thought of many future additions and improvements for this pr
 * Training of the Decision Tree - Find users who would be willing to score locations.
 * Scoring System - Compare and contrast different methods of scoring locations and decaying based on relative popularity.
 * UI/UX - Spend more time polishing the UI/UX, and speeding up the Django website. 
+* Stability - Currently, due to our method of crawling a decision tree, we sometimes encounter recursion stack issues. Finding a different structure (perhaps a non-recursive one) would help in this 
