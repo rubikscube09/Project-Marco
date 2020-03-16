@@ -24,6 +24,8 @@ def calc_score(attractions_dict,clusters = trip_advisor_consts.CLUSTERS):
             for i in range(0,len(attractions_dict[city])):
                 for attraction in attractions_dict[city][i]:
                     if attraction in clusters[cluster]:
+                        # Scoring system: Tripadvisor data is scored in order of ranking.
+                        # Remove weight from a city if it is further down on the list.
                         count += (len(attractions_dict[city]) - 0.5*i)/len(attractions_dict[city])
             column.append(count)
             if rpt == False:
@@ -31,7 +33,6 @@ def calc_score(attractions_dict,clusters = trip_advisor_consts.CLUSTERS):
         rpt = True
         out[cluster] = column
         # normalize
-        # out[cluster] = out[cluster] / out[cluster].sum()
     out['city'] = city_column
     out = out.set_index(['city'])
     return out 
