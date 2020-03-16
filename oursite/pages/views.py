@@ -3,6 +3,14 @@ import json
 
 # Create your views here.
 def home_view(request):
+    '''
+    This function handles the rendering of the home page
+
+    Input: request from the browser
+
+    Ouput: rendered webpage
+    '''
+
     # clear json
     dictionary = {}
     with open('result.json', 'w') as fp:
@@ -12,6 +20,14 @@ def home_view(request):
     return render(request, 'home.html', my_context)
 
 def team_view(request):
+    '''
+    This function handles the rendering of the team page
+
+    Input: request from the browser
+
+    Ouput: rendered webpage
+    '''
+    
     team_context = {'team': ['Abhimanyu Choudhary', 
                              'Ezra Max',
                              'Hao Zhu ',

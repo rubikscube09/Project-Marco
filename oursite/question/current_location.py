@@ -2,6 +2,15 @@ import requests
 import socket
 
 def get_location():
+    '''
+    Test the user's internet location, if there is a connection, return the
+    user's current location.
+
+    Input: None
+
+    Output: the current city or an empty string if there is no connection
+    '''
+    
     connection = False
     try:
         host = socket.gethostbyname("www.google.com")
@@ -22,6 +31,4 @@ def get_location():
                                 '?access_key=e24ee45fcafb4d395d01679458ac43dd')
         location_json = location_response.json()
         city = location_json['city']
-        #lat = location_json['latitude']
-        #lon = location_json['longitude']
         return city
