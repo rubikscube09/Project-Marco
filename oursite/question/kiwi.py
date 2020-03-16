@@ -84,7 +84,8 @@ def get_flights(fly_from, fly_to,
     filt_flight_data = [x for x in flight_data if float(x['price'])<= budget \
             and float(x['fly_duration'].split('h')[0]) <= float(max_duration)]    
     final_data = [None]*len(filt_flight_data)
-    #Final output containing total price, duration, destinations, and legs of journey w/ associated flight numbers..
+    #Final output containing total price, duration, destinations, and legs of 
+    # journey w/ associated flight numbers..
     for i in range(0,len(final_data)):
         final_data[i] = {'price':filt_flight_data[i]['price'], 
                             'Itinerary':[((leg['cityFrom'],leg['cityTo']),

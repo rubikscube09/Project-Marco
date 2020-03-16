@@ -1,5 +1,4 @@
 import pandas as pd
-import time
 import numpy as np
 from sklearn import preprocessing
 from sklearn.tree import DecisionTreeClassifier
@@ -12,7 +11,6 @@ from scipy import sparse
 
 
 '''
-
 Generates a decision tree using the sklearn implementation. In order to 
 train the decision tree, data is generated using normal perturbation of 
 collected sample scores. The normal perturbation of the feature is 
@@ -21,7 +19,6 @@ features match the true mean of the scores, the scores are normally distributed
 and their variance is proportional to the sample variance. This assumption 
 is accurate under certain assumptions, but we hope to have true training data 
 in future implementations.
-
 '''
 
 #Dictionary renaming the possible categories.
@@ -44,9 +41,9 @@ RENAME_DIC={
         'FOOD_DRINK': 'Restaurants and bars',
         'MUSEUMS': 'Culture and museums'
         }
+
 #Reads in previously computed scores for each country.
 scores = pd.read_csv('full_country_score.csv')
-
 
 #Computes mean and standard deviation for each score category.
 STD_DICT=dict(scores.std(axis=0,skipna=True))
@@ -86,11 +83,13 @@ y_pred = clf.predict(X_test)
 
 # The actual tree structure.
 tree_ = clf.tree_ 
-# Child structure : leftchild[i] is the left child to node with absolute path i. etc.
+# Child structure : leftchild[i] is the left child to node with absolute 
+# path i. etc.
 n_nodes = clf.tree_.node_count 
 children_left = clf.tree_.children_left
 children_right = clf.tree_.children_right
-# Features: Feature[i] returns the column number/feature on which node i is being split.
+# Features: Feature[i] returns the column number/feature on which node i 
+# is being split.
 feature = clf.tree_.feature 
 # Threshold: The value at which the split occurs.
 threshold = clf.tree_.threshold 

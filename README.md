@@ -106,8 +106,8 @@ data: a reasonable assumption is that the attractions that make a city famous no
 ### `Scraping/` 
 
 The files in this folder are scripts and data related to the webscraping portion of the project. In particular, they contain data acquired from scraping the LonelyPlanet website. Some important files in this folder are:
-* scrape_city_links.py -- Scrape city links from Lonely Planet
-* scrape_city_pages.py -- Scrape info from city pages on Lonely Planet 
+* `scrape_city_links.py` -- Scrape city links from Lonely Planet
+* `scrape_city_pages.py` -- Scrape info from city pages on Lonely Planet 
 
 ### `oursite/` 
 

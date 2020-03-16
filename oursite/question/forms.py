@@ -1,6 +1,7 @@
 from django import forms
 from .models import Question, OriginInfo
 
+
 class QuestionForm(forms.ModelForm):
     CHOICES = [(0, 'Not at all'), 
                (1, 'A little bit'), 
@@ -21,10 +22,12 @@ class OriginInfoForm(forms.ModelForm):
         model = OriginInfo
         fields = ['answer']
 
+
 class AltOriginInfoForm(forms.ModelForm):
     class Meta:
         model = OriginInfo
         fields = ['location']
+
 
 class Alt1OriginInfoForm(forms.ModelForm):
     start_date = forms.DateField(widget=\
@@ -35,13 +38,15 @@ class Alt1OriginInfoForm(forms.ModelForm):
         model = OriginInfo
         fields = ['start_date', 'end_date']
 
+
 class Alt2OriginInfoForm(forms.ModelForm):
     class Meta:
         model = OriginInfo
         fields = ['num_travelers']
-    
+        
 
 class Alt3OriginInfoForm(forms.ModelForm):
     class Meta:
         model = OriginInfo
         fields = ['duration']
+        

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 from datetime import date
 
 # Create your models here.
@@ -15,10 +16,24 @@ class Question(models.Model):
                (5, 'Extremely')]
     answer = models.IntegerField(max_length=1, choices=choices)
 
+
     def get_absolute_url(self):
+        '''
+        Get the absolute url to a question on the list questions page.
+
+        Input: None
+
+        Output: An absolute url
+        '''
+
         return reverse('questions:question-list', kwargs={'id': self.id})
     
+
     def clean_answer(self):
+        '''
+        Get the cleaned answer
+        '''
+
         answer = self.cleaned_data.get('answer')
 
 
@@ -33,5 +48,20 @@ class OriginInfo(models.Model):
     choices = [('Y', 'Yes'), ('N', 'No')]
     answer = models.CharField(max_length=1, choices=choices)
 
+
     def clean_answer(self):
+        '''
+        Get the cleaned answer
+        '''
+
         answer = self.clean_data.get('answer')
+    
+
+    def clean(self):
+        '''
+        Validate the starting and end dates, raise an error if the starting
+        date is later than the end date.
+        '''
+
+        if self.start_date > self.end_date:
+            raise ValidationError('Please choose another date')
